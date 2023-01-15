@@ -1,17 +1,16 @@
-.eunit
-*.o
-*.beam
-*.plt
-erl_crash.dump
-.concrete/DEV_MODE
+#
+# .gitignore
+# =============================================================================
+# Urban bus routing microservice prototype (LFE port). Version 0.0.1
+# =============================================================================
+# An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
+# as a microservice, implementing a simple urban bus routing prototype.
+#
+# This is the configuration of the project Git ignorables,
+# i.e. objects that should not be put into the repository.
+#
 
-# rebar 2.x
-.rebar
-rel/example_project
-ebin/*.beam
-deps
-
-# rebar 3
-.rebar3
+# === Rebar3 intermediates ====================================================
 _build/
-_checkouts/
+
+# vim:set nu et ts=4 sw=4:
