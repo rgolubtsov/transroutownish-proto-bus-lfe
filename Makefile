@@ -11,6 +11,9 @@
 # (See the LICENSE file at the top of the source tree.)
 #
 
+# ----- Bugger   Off -------
+# --- 7 Drunken  Sailors ---
+# ----- Friendly Reunion ---
 BEAM = bus-app.beam \
        bus-sup.beam
 
