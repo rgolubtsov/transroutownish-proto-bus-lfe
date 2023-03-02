@@ -1,4 +1,4 @@
-# Trans-RoutE-Townish (transroutownish) :small_orange_diamond: Urban bus routing microservice prototype (LFE port)
+# Trans-RoutE-Townish (transroutownish) :small_orange_diamond: Urban bus routing microservice prototype (LFE/OTP port)
 
 **An LFE (Lisp Flavoured Erlang) application, designed and intended to be run as a microservice,
 <br />implementing a simple urban bus routing prototype**
