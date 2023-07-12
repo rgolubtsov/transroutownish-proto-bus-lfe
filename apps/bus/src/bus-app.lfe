@@ -30,7 +30,11 @@
     "The application entry point callback.
      Creates the supervision tree by starting the top supervisor."
 
-    (let ((#('ok, pid) (bus-sup:start_link))))
+    (let ((state 'nil))
+
+    (let ((`#(ok ,pid) (bus-sup:start_link)))
+
+    `#(ok ,pid ,state)))
 )
 
 #| ----------------------------------------------------------------------------
