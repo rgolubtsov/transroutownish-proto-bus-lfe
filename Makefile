@@ -1,7 +1,7 @@
 #
 # Makefile
 # =============================================================================
-# Urban bus routing microservice prototype (LFE port). Version 0.0.1
+# Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.1
 # =============================================================================
 # An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 # as a microservice, implementing a simple urban bus routing prototype.
@@ -11,31 +11,36 @@
 # (See the LICENSE file at the top of the source tree.)
 #
 
-# ----- Bugger   Off -------
-# --- 7 Drunken  Sailors ---
-# ----- Friendly Reunion ---
-BEAM = bus-app.beam \
-       bus-sup.beam
+EBIN = _build/default/lib/bus/ebin
+BEAM = $(EBIN)/bus-app.beam \
+       $(EBIN)/bus-sup.beam
 
 APPS = apps/bus/src
 SRCS = $(APPS)/bus-app.lfe \
        $(APPS)/bus-sup.lfe
 
-# Specify flags and other vars here.
-LFEC    = lfec
-ECHO    = @echo
-RMFLAGS = -vR
+SERV = _build/default/rel/bus/lib
 
-# Making the target (BEAMs).
+# Specify flags and other vars here.
+REBAR3 = rebar3
+LFE    = lfe
+ECHO   = @echo
+
+# Making the first target (BEAMs).
 $(BEAM): $(SRCS)
-	$(LFEC) $(SRCS)
+	$(REBAR3) $(LFE) compile
+	$(ECHO)
+
+# Making the second target (releases).
+$(SERV): $(BEAM)
+	$(REBAR3) $(LFE) release
 	$(ECHO)
 
 .PHONY: all clean
 
-all: $(BEAM)
+all: $(SERV)
 
 clean:
-	$(RM) $(RMFLAGS) $(BEAM)
+	$(REBAR3) $(LFE) clean
 
 # vim:set nu ts=4 sw=4:

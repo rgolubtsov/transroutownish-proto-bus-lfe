@@ -1,0 +1,6 @@
+-sname bus
+
+-setcookie bus_cookie
+
++K true
++A30

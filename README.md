@@ -1,4 +1,4 @@
-# Trans-RoutE-Townish (transroutownish) :small_orange_diamond: Urban bus routing microservice prototype (LFE port)
+# Trans-RoutE-Townish (transroutownish) :small_orange_diamond: Urban bus routing microservice prototype (LFE/OTP port)
 
 **An LFE (Lisp Flavoured Erlang) application, designed and intended to be run as a microservice,
 <br />implementing a simple urban bus routing prototype**
@@ -38,7 +38,7 @@ One may consider this project has to be suitable for a wide variety of applied a
 
 ## Building
 
-[Under **Ubuntu Server (Ubuntu 22.04.1 LTS x86-64)**]: Install the necessary dependencies (`erlang-nox`, `erlang-dev`, `rebar3`, `make`, `docker.io`):
+The microservice is known to be built and run successfully under **Ubuntu Server (Ubuntu 22.04.2 LTS x86-64)**. Install the necessary dependencies (`erlang-nox`, `erlang-dev`, `rebar3`, `make`, `docker.io`):
 
 ```
 $ sudo apt-get update && \
@@ -56,6 +56,44 @@ $ curl -sO https://s3.amazonaws.com/rebar3/rebar3      && \
 ...
 ```
 
-**Build** the microservice using **Rebar3**:
+**Build** the microservice using **Rebar3** (and its LFE plugin):
+
+```
+$ rebar3 lfe clean
+...
+$ rebar3 lfe compile
+...
+$ rebar3 lfe release
+...
+```
+
+Or **build** the microservice using **GNU Make** (optional, but for convenience &mdash; it covers the same **Rebar3** build workflow under the hood):
+
+```
+$ make clean
+...
+$ make      # <== Compilation phase.
+...
+$ make all  # <== Assembling a release of the microservice.
+...
+```
+
+---
+
+## Running
+
+**Run** the microservice using its startup script along with the `foreground` command, that is meant "*Start release with output to stdout*":
+
+```
+$ ./_build/default/rel/bus/bin/bus foreground; echo $?
+...
+```
+
+The microservice then can be stopped, again by using its startup script along with the `stop` command, that is meant "*Stop the running node*". It should be issued in another terminal session, not the current one:
+
+```
+$ ./_build/default/rel/bus/bin/bus stop; echo $?
+0
+```
 
 **TBD**

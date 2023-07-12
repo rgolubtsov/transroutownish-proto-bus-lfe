@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-sup.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE port). Version 0.0.1
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.1
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -26,7 +26,7 @@
 (defun start_link ()
     "Creates the supervisor process as part of a supervision tree."
 
-    (supervisor:start_link #('local (MODULE)) (MODULE) ())
+    (supervisor:start_link `#(local ,(MODULE)) (MODULE) ())
 )
 
 #| ----------------------------------------------------------------------------
@@ -39,17 +39,17 @@
      Defines configuration for the supervisor
      and specifications of child processes."
 
-    (let ((sup-flags #M(
-        'strategy  one_for_all ; Defaults to "one_for_one".
-        'intensity 0           ; Defaults to 1 restart.
-        'period    1           ; Defaults to 5 seconds.
+    (let ((sup-flags `#M(
+        strategy  one_for_all ; Defaults to "one_for_one".
+        intensity 0           ; Defaults to 1 restart.
+        period    1           ; Defaults to 5 seconds.
     )))
 
     (let ((child-specs ())) ; No any particular specs; relying on the defaults.
 
-    #('ok, #(
-        sup-flags
-        child-specs
+    `#(ok #(
+        ,sup-flags
+        ,child-specs
     ))))
 )
 

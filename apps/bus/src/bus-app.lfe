@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-app.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE port). Version 0.0.1
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.1
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -30,7 +30,11 @@
     "The application entry point callback.
      Creates the supervision tree by starting the top supervisor."
 
-    (let ((#('ok, pid) (bus-sup:start_link))))
+    (let ((state 'nil))
+
+    (let ((`#(ok ,pid) (bus-sup:start_link)))
+
+    `#(ok ,pid ,state)))
 )
 
 #| ----------------------------------------------------------------------------
