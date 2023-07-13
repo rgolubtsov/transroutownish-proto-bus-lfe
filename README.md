@@ -56,6 +56,8 @@ $ curl -sO https://s3.amazonaws.com/rebar3/rebar3      && \
 ...
 ```
 
+The LFE (Lisp Flavoured Erlang) distribution can be downloaded and installed automatically as a dependency of the Rebar3 LFE plugin `rebar3_lfe`. For that to be done, it needs to simply launch the `$ rebar3` command without any arguments or options. The LFE distribution will be installed into the `./_build/default/plugins/lfe/` directory.
+
 **Build** the microservice using **Rebar3** (and its LFE plugin):
 
 ```
@@ -80,6 +82,14 @@ $ make all  # <== Assembling a release of the microservice.
 
 ---
 
+The following command given is for demonstrational purposes only &mdash; Rebar3 will always fetch necessary dependencies during a one of their building phases, even at the `clean`-ing phase:
+
+```
+$ rebar3 tree
+===> Verifying dependencies...
+└─ bus─0.0.1 (project app)
+```
+
 ## Running
 
 **Run** the microservice using its startup script along with the `foreground` command, that is meant "*Start release with output to stdout*":
@@ -95,5 +105,34 @@ The microservice then can be stopped, again by using its startup script along wi
 $ ./_build/default/rel/bus/bin/bus stop; echo $?
 0
 ```
+
+To identify, which commands are available and what they mean, the startup script can be run without specifying a command or arguments:
+
+```
+$ ./_build/default/rel/bus/bin/bus
+Usage: bus [COMMAND] [ARGS]
+
+Commands:
+
+  foreground              Start release with output to stdout
+  remote_console          Connect remote shell to running node
+...
+  stop                    Stop the running node
+  restart                 Restart the applications but not the VM
+...
+  daemon                  Start release in the background with run_erl (named pipes)
+...
+  daemon_attach           Connect to node started as daemon with to_erl (named pipes)
+...
+```
+
+Thus, to **run** the microservice as a daemon, in the background, the `daemon` command should be used instead:
+
+```
+$ ./_build/default/rel/bus/bin/bus daemon; echo $?
+0
+```
+
+The `daemon_attach` command then allows connecting to the microservice to make interactions with them. But the latter is not required at all regarding the true purpose of the microservice. And it can be stopped again with the `stop` command in the same terminal session.
 
 **TBD**
