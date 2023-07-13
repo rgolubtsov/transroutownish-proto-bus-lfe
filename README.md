@@ -106,4 +106,33 @@ $ ./_build/default/rel/bus/bin/bus stop; echo $?
 0
 ```
 
+To identify, which commands are available and what they mean, the startup script can be run without specifying a command or arguments:
+
+```
+$ ./_build/default/rel/bus/bin/bus
+Usage: bus [COMMAND] [ARGS]
+
+Commands:
+
+  foreground              Start release with output to stdout
+  remote_console          Connect remote shell to running node
+...
+  stop                    Stop the running node
+  restart                 Restart the applications but not the VM
+...
+  daemon                  Start release in the background with run_erl (named pipes)
+...
+  daemon_attach           Connect to node started as daemon with to_erl (named pipes)
+...
+```
+
+Thus, to **run** the microservice as a daemon, in the background, the `daemon` command should be used instead:
+
+```
+$ ./_build/default/rel/bus/bin/bus daemon; echo $?
+0
+```
+
+The `daemon_attach` command then allows connecting to the microservice to make interactions with them. But the latter is not required at all regarding the true purpose of the microservice. And it can be stopped again with the `stop` command in the same terminal session.
+
 **TBD**
