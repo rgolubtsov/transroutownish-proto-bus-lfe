@@ -30,11 +30,20 @@
     "The application entry point callback.
      Creates the supervision tree by starting the top supervisor."
 
-    (let ((state 'nil))
+    (let ((app-name (atom_to_list (element 2 (application:get_application)))))
+
+    (io:put_chars app-name) (io:nl)
+
+    ; Opening the system logger.
+    ; Calling <syslog.h> openlog(NULL, LOG_CONS | LOG_PID, LOG_DAEMON);
+    (syslog:start) (let ((`#(ok ,syslog)
+    (syslog:open app-name `(cons pid) 'daemon)))
+
+    (syslog:log syslog 'info "Server started")
 
     (let ((`#(ok ,pid) (bus-sup:start_link)))
 
-    `#(ok ,pid ,state)))
+    `#(ok ,pid ,syslog)))) ; |syslog| will be returned as the value of |state|.
 )
 
 #| ----------------------------------------------------------------------------
@@ -45,6 +54,10 @@
 (defun prep_stop (-state)
     "The application preparing-to-termination callback.
      Gets called just before the application is about to be stopped."
+
+    (syslog:log -state 'info "Server stopped")
+
+    (syslog:close -state)
 
     'ok
 )
