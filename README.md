@@ -88,6 +88,7 @@ The following command given is for demonstrational purposes only &mdash; Rebar3 
 $ rebar3 tree
 ===> Verifying dependencies...
 └─ bus─0.0.1 (project app)
+   └─ syslog─1.1.0 (hex package)
 ```
 
 ## Running

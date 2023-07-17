@@ -1,1 +1,8 @@
-[].
+{"1.2.0",
+[{<<"syslog">>,{pkg,<<"syslog">>,<<"1.1.0">>},0}]}.
+[
+{pkg_hash,[
+ {<<"syslog">>, <<"6419A232BEA84F07B56DC575225007FFE34D9FDC91ABE6F1B2F254FD71D8EFC2">>}]},
+{pkg_hash_ext,[
+ {<<"syslog">>, <<"4C6A41373C7E20587BE33EF841D3DE6F3BEBA08519809329ECC4D27B15B659E1">>}]}
+].

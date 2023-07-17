@@ -20,7 +20,8 @@
     {registered,   []},
     {applications, [
         kernel,
-        stdlib
+        stdlib,
+        syslog
     ]},
     {mod, {'bus-app', []}}
 ]}.
