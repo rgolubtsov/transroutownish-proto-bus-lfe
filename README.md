@@ -63,7 +63,7 @@ The LFE (Lisp Flavoured Erlang) distribution can be downloaded and installed aut
 ```
 $ rebar3 lfe clean
 ...
-$ rebar3 lfe compile
+$ rebar3     compile
 ...
 $ rebar3 lfe release
 ...
@@ -87,7 +87,8 @@ The following command given is for demonstrational purposes only &mdash; Rebar3 
 ```
 $ rebar3 tree
 ===> Verifying dependencies...
-└─ bus─0.0.1 (project app)
+└─ bus─0.0.5 (project app)
+   └─ syslog─1.1.0 (hex package)
 ```
 
 ## Running

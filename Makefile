@@ -1,7 +1,7 @@
 #
 # Makefile
 # =============================================================================
-# Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.1
+# Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.5
 # =============================================================================
 # An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 # as a microservice, implementing a simple urban bus routing prototype.
@@ -28,7 +28,7 @@ ECHO   = @echo
 
 # Making the first target (BEAMs).
 $(BEAM): $(SRCS)
-	$(REBAR3) $(LFE) compile
+	$(REBAR3) compile
 	$(ECHO)
 
 # Making the second target (releases).
