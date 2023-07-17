@@ -28,7 +28,7 @@ ECHO   = @echo
 
 # Making the first target (BEAMs).
 $(BEAM): $(SRCS)
-	$(REBAR3) $(LFE) compile
+	$(REBAR3) compile
 	$(ECHO)
 
 # Making the second target (releases).
