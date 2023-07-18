@@ -11,6 +11,10 @@
 ; (See the LICENSE file at the top of the source tree.)
 ;
 
+#| ----------------------------------------------------------------------------
+ | @version 0.0.5
+ | @since   0.0.1
+ |#
 (defmodule bus-sup
     "The supervisor module of the application."
 

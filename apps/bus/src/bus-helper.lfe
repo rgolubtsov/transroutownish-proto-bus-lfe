@@ -11,6 +11,10 @@
 ; (See the LICENSE file at the top of the source tree.)
 ;
 
+#| ----------------------------------------------------------------------------
+ | @version 0.0.5
+ | @since   0.0.5
+ |#
 (defmodule aux
     "The helper module for the application."
 
