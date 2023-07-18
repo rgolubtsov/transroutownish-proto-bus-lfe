@@ -86,7 +86,19 @@ The following command given is for demonstrational purposes only &mdash; Rebar3 
 
 ```
 $ rebar3 tree
+===> Fetching rebar3_lfe v0.4.4
+===> Fetching rebar_cmd v0.4.0
+===> Fetching rebar3_hex v6.11.4
+...
+===> Fetching lfe v2.1.1
+===> Fetching ltest v0.13.4
+===> Fetching erlang_color v1.0.0
+...
 ===> Verifying dependencies...
+===> Fetching syslog v1.1.0
+===> Fetching pc v1.14.0
+===> Analyzing applications...
+...
 └─ bus─0.0.5 (project app)
    └─ syslog─1.1.0 (hex package)
 ```
