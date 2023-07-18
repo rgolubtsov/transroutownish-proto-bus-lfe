@@ -36,7 +36,7 @@
 
     (let ((app-name (atom_to_list (element 2 (application:get_application)))))
 
-    (io:put_chars app-name) (io:nl)
+    (logger:info app-name)
 
     ; Opening the system logger.
     ; Calling <syslog.h> openlog(NULL, LOG_CONS | LOG_PID, LOG_DAEMON);
