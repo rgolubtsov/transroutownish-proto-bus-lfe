@@ -39,7 +39,8 @@
     (syslog:start) (let ((`#(ok ,syslog)
     (syslog:open app-name `(cons pid) 'daemon)))
 
-    (syslog:log syslog 'info "Server started")
+    (logger:info             (aux:MSG-SERVER-STARTED))
+    (syslog:log syslog 'info (aux:MSG-SERVER-STARTED))
 
     (let ((`#(ok ,pid) (bus-sup:start_link)))
 
@@ -55,7 +56,8 @@
     "The application preparing-to-termination callback.
      Gets called just before the application is about to be stopped."
 
-    (syslog:log -state 'info "Server stopped")
+    (logger:info             (aux:MSG-SERVER-STOPPED))
+    (syslog:log -state 'info (aux:MSG-SERVER-STOPPED))
 
     (syslog:close -state)
 
