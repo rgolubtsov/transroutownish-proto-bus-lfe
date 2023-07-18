@@ -1,7 +1,7 @@
 #
 # Makefile
 # =============================================================================
-# Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.5
+# Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.9
 # =============================================================================
 # An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 # as a microservice, implementing a simple urban bus routing prototype.

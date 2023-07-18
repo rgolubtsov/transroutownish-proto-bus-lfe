@@ -99,7 +99,7 @@ $ rebar3 tree
 ===> Fetching pc v1.14.0
 ===> Analyzing applications...
 ...
-└─ bus─0.0.5 (project app)
+└─ bus─0.0.9 (project app)
    └─ syslog─1.1.0 (hex package)
 ```
 
