@@ -20,10 +20,37 @@
 
     (export-macro MSG-SERVER-STARTED
                   MSG-SERVER-STOPPED)
+
+    (export (-get-settings 0))
 )
 
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started")
 (defmacro MSG-SERVER-STOPPED () "Server stopped")
+
+; -----------------------------------------------------------------------------
+; Helper function. Used to get the application settings.
+;
+; Returns: The tuple containing values of individual settings.
+(defun -get-settings ()
+    ; Retrieving the port number used to run the server -----------------------
+    (let ((server-port 8765))
+
+    ; Identifying, whether debug logging is enabled ---------------------------
+    (let ((debug-log-enabled 'true))
+
+    ; Retrieving the path and filename of the routes data store ---------------
+    (let ((datastore-path-prefix "x"))
+    (let ((datastore-path-dir    "y"))
+    (let ((datastore-filename    "z"))
+
+    `#(
+        ,server-port
+        ,debug-log-enabled ; <== "true" or "false".
+    ,(++ datastore-path-prefix
+         datastore-path-dir
+         datastore-filename)
+    ))))))
+)
 
 ; vim:set nu et ts=4 sw=4:
