@@ -25,7 +25,7 @@
     ]},
     {mod, {'bus-app', []}},
     {env, [
-        {'server-port', 1234}
+        {'server-port', 8765}
     ]}
 ]}.
 
