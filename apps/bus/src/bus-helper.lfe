@@ -24,9 +24,30 @@
     (export (-get-settings 0))
 )
 
+; Common error messages.
+(defmacro ERR-PORT-VALID-MUST-BE-POSITIVE-INT ()
+      (++ "Valid server port must be a positive integer value, "
+          "in the range 1024 .. 49151. The default value of 8080 "
+          "will be used instead."))
+
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started")
 (defmacro MSG-SERVER-STOPPED () "Server stopped")
+
+#| ----------------------------------------------------------------------------
+ | The minimum port number allowed.
+ |#
+(defmacro MIN_PORT () 1024)
+
+#| ----------------------------------------------------------------------------
+ | The maximum port number allowed.
+ |#
+(defmacro MAX_PORT () 49151)
+
+#| ----------------------------------------------------------------------------
+ | The default server port number.
+ |#
+(defmacro DEF_PORT () 8080)
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.
@@ -34,7 +55,23 @@
 ; Returns: The tuple containing values of individual settings.
 (defun -get-settings ()
     ; Retrieving the port number used to run the server -----------------------
-    (let ((server-port 8765))
+    (let ((server-port- (application:get_env 'server-port)))
+
+    (let ((server-port  (cond ((=/= server-port- 'undefined)
+        (let ((server-port-- (element 2 server-port-)))
+
+        (cond ((and (>= server-port-- (MIN_PORT))
+                    (=< server-port-- (MAX_PORT))) server-port--)
+        ('true
+            (logger:error (ERR-PORT-VALID-MUST-BE-POSITIVE-INT))
+
+            (DEF_PORT)
+        ))))
+    ('true
+        (logger:error (ERR-PORT-VALID-MUST-BE-POSITIVE-INT))
+
+        (DEF_PORT)
+    ))))
 
     ; Identifying, whether debug logging is enabled ---------------------------
     (let ((debug-log-enabled 'true))
@@ -50,7 +87,7 @@
     ,(++ datastore-path-prefix
          datastore-path-dir
          datastore-filename)
-    ))))))
+    )))))))
 )
 
 ; vim:set nu et ts=4 sw=4:
