@@ -23,7 +23,10 @@
         stdlib,
         syslog
     ]},
-    {mod, {'bus-app', []}}
+    {mod, {'bus-app', []}},
+    {env, [
+        {'server-port', 1234}
+    ]}
 ]}.
 
 % vim:set nu et ts=4 sw=4:
