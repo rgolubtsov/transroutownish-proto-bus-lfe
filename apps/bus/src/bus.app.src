@@ -25,7 +25,14 @@
     ]},
     {mod, {'bus-app', []}},
     {env, [
-        {'server-port', 8765}
+        {'server-port', 8765},
+
+        % Uncomment this setting to enable debug logging.
+%       {'logger-debug-enabled', yes},
+
+        {'routes-datastore-path-prefix', "./"        },
+        {'routes-datastore-path-dir',    "data/"     },
+        {'routes-datastore-filename',    "routes.txt"}
     ]}
 ]}.
 
