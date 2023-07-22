@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-app.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.9
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.10
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -12,7 +12,7 @@
 ;
 
 #| ----------------------------------------------------------------------------
- | @version 0.0.9
+ | @version 0.0.10
  | @since   0.0.1
  |#
 (defmodule bus-app
@@ -34,9 +34,20 @@
     "The application entry point callback.
      Creates the supervision tree by starting the top supervisor."
 
+    ; Getting the application settings.
+    (let ((settings (aux:-get-settings)))
+
+    (let ((server-port       (element 1 settings)))
+    (let ((debug-log-enabled (element 2 settings)))
+    (let ((datastore         (element 3 settings)))
+
+    (logger:debug (integer_to_list server-port))
+    (logger:debug (atom_to_list debug-log-enabled))
+    (logger:debug datastore)))))
+
     (let ((app-name (atom_to_list (element 2 (application:get_application)))))
 
-    (logger:info app-name)
+    (logger:debug app-name)
 
     ; Opening the system logger.
     ; Calling <syslog.h> openlog(NULL, LOG_CONS | LOG_PID, LOG_DAEMON);
