@@ -86,36 +86,36 @@
         ('true 'false))))
 
     ; Retrieving the path and filename of the routes data store ---------------
-    (let ((datastore-path-prefix- (application:get_env 'routes-datastore-path-prefix)))
-    (let ((datastore-path-prefix  (cond ((=/= datastore-path-prefix- 'undefined)
-        (let ((datastore-path-prefix-0 (element 2 datastore-path-prefix-)))
-        (let ((datastore-path-prefix-1 (string:is_empty datastore-path-prefix-0)))
-        (if  (not datastore-path-prefix-1) datastore-path-prefix-0
+    (let ((ds-path-prefix-(application:get_env 'routes-datastore-path-prefix)))
+    (let ((ds-path-prefix (cond ((=/= ds-path-prefix- 'undefined)
+        (let ((ds-path-prefix-0 (element 2 ds-path-prefix-)))
+        (let ((ds-path-prefix-1 (string:is_empty ds-path-prefix-0)))
+        (if  (not ds-path-prefix-1) ds-path-prefix-0
                (SAMPLE-ROUTES-PATH-PREFIX)))))
         ('true (SAMPLE-ROUTES-PATH-PREFIX)))))
 
-    (let ((datastore-path-dir- (application:get_env 'routes-datastore-path-dir)))
-    (let ((datastore-path-dir  (cond ((=/= datastore-path-dir- 'undefined)
-        (let ((datastore-path-dir-0 (element 2 datastore-path-dir-)))
-        (let ((datastore-path-dir-1 (string:is_empty datastore-path-dir-0)))
-        (if  (not datastore-path-dir-1) datastore-path-dir-0
+    (let ((ds-path-dir-(application:get_env 'routes-datastore-path-dir)))
+    (let ((ds-path-dir (cond ((=/= ds-path-dir- 'undefined)
+        (let ((ds-path-dir-0 (element 2 ds-path-dir-)))
+        (let ((ds-path-dir-1 (string:is_empty ds-path-dir-0)))
+        (if  (not ds-path-dir-1) ds-path-dir-0
                (SAMPLE-ROUTES-PATH-DIR)))))
         ('true (SAMPLE-ROUTES-PATH-DIR)))))
 
-    (let ((datastore-filename- (application:get_env 'routes-datastore-filename)))
-    (let ((datastore-filename  (cond ((=/= datastore-filename- 'undefined)
-        (let ((datastore-filename-0 (element 2 datastore-filename-)))
-        (let ((datastore-filename-1 (string:is_empty datastore-filename-0)))
-        (if  (not datastore-filename-1) datastore-filename-0
+    (let ((ds-filename-(application:get_env 'routes-datastore-filename)))
+    (let ((ds-filename (cond ((=/= ds-filename- 'undefined)
+        (let ((ds-filename-0 (element 2 ds-filename-)))
+        (let ((ds-filename-1 (string:is_empty ds-filename-0)))
+        (if  (not ds-filename-1) ds-filename-0
                (SAMPLE-ROUTES-FILENAME)))))
         ('true (SAMPLE-ROUTES-FILENAME)))))
 
     `#(
         ,server-port
         ,debug-log-enabled ; <== "true" or "false".
-    ,(++ datastore-path-prefix
-         datastore-path-dir
-         datastore-filename)
+    ,(++ ds-path-prefix
+         ds-path-dir
+         ds-filename)
     )))))))))))
 )
 
