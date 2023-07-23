@@ -43,7 +43,20 @@
 
     (logger:debug (integer_to_list server-port))
     (logger:debug (atom_to_list debug-log-enabled))
-    (logger:debug datastore)))))
+    (logger:debug datastore)
+
+    ; Slurping routes from the routes data store.
+    (let ((routes- (file:read_file (filename:join
+                   (code:priv_dir 'bus) datastore))))
+
+    (cond ((and (=:= (element 1 routes-) 'error )
+                (=:= (element 2 routes-) 'enoent))
+        (logger:critical (aux:ERR-DATASTORE-NOT-FOUND))
+
+        (init:stop (aux:EXIT-FAILURE)))
+    ('true 'false))
+
+    (logger:debug (element 2 routes-)))))))
 
     (let ((app-name (atom_to_list (element 2 (application:get_application)))))
 
