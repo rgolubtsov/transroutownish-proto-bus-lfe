@@ -21,7 +21,8 @@
     {applications, [
         kernel,
         stdlib,
-        syslog
+        syslog,
+        cowboy
     ]},
     {mod, {'bus-app', []}},
     {env, [
