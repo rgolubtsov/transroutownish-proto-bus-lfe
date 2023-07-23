@@ -42,8 +42,8 @@
           "FATAL: Data store file not found. Quitting...")
 
 ; Common notification messages.
-(defmacro MSG-SERVER-STARTED () "Server started")
-(defmacro MSG-SERVER-STOPPED () "Server stopped")
+(defmacro MSG-SERVER-STARTED () "Server started on port ")
+(defmacro MSG-SERVER-STOPPED () "Server stopped"         )
 
 #| ----------------------------------------------------------------------------
  | The minimum port number allowed.
