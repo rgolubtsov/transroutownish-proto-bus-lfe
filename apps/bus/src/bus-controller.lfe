@@ -33,6 +33,11 @@
     (let ((routes-list       (element 3 args)))
     (let ((syslog            (element 4 args)))
 
+    ; Starting up the Cowboy web server along with all their dependencies.
+    (application:ensure_all_started 'cowboy)
+
+    ; TODO: Dispatch = cowboy_router:compile([...]), ...
+
     (let ((server-port- (integer_to_list server-port)))
 
     (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
