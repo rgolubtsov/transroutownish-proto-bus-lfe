@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-app.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.12
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.0.13
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -12,7 +12,7 @@
 ;
 
 #| ----------------------------------------------------------------------------
- | @version 0.0.12
+ | @version 0.0.13
  | @since   0.0.1
  |#
 (defmodule bus-app
@@ -69,10 +69,13 @@
     (syslog:start) (let ((`#(ok ,syslog)
     (syslog:open app-name `(cons pid) 'daemon)))
 
-    (let ((server-port- (integer_to_list server-port)))
-
-    (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
-    (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))
+    ; Starting up the bundled web server.
+    (bus-controller:startup `#(
+        ,server-port
+        ,debug-log-enabled
+        ,routes-list
+        ,syslog
+    ))
 
     (let ((`#(ok ,pid) (bus-sup:start_link)))
 

@@ -99,7 +99,7 @@ $ rebar3 tree
 ===> Fetching pc v1.14.0
 ===> Analyzing applications...
 ...
-└─ bus─0.0.12 (project app)
+└─ bus─0.0.13 (project app)
    └─ syslog─1.1.0 (hex package)
 ```
 
@@ -148,4 +148,4 @@ $ ./_build/default/rel/bus/bin/bus daemon; echo $?
 
 The `daemon_attach` command then allows connecting to the microservice to make interactions with them. But the latter is not required at all regarding the true purpose of the microservice. And it can be stopped again with the `stop` command in the same terminal session.
 
-**TBD**
+**TBD** :dvd:
