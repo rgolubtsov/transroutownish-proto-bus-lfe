@@ -52,7 +52,15 @@
         (init:stop (aux:EXIT-FAILURE)))
     ('true 'false))
 
-    (logger:debug (element 2 routes-))
+    (let ((routes (if (=:= (element 1 routes-) 'ok)
+        (string:split (element 2 routes-) (aux:NEW-LINE) 'all)
+        ())))
+
+    (let ((routes-list (lists:foldl (lambda (route routes--)
+        (lists:append `(,routes-- (
+            ,(++ (re:replace route (aux:ROUTE-ID-REGEX) (aux:EMPTY-STRING)
+        `(#(return list))) (aux:SPACE)))))
+    ) () (lists:droplast routes))))
 
     (let ((app-name (atom_to_list (element 2 (application:get_application)))))
 
@@ -69,7 +77,7 @@
     (let ((`#(ok ,pid) (bus-sup:start_link)))
 
     `#(ok ,pid ,syslog) ; <==|syslog| will be returned as the value of |state|.
-    ))))))))
+    ))))))))))
 )
 
 #| ----------------------------------------------------------------------------
