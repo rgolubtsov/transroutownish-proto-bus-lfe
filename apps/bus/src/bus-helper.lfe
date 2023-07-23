@@ -19,19 +19,27 @@
     "The helper module for the application."
 
     (export-macro EXIT-FAILURE
-                  EXIT-SUCCESS)
+                  EXIT-SUCCESS
+                  EMPTY-STRING
+                  SPACE
+                  NEW-LINE)
 ; -----------------------------------------------------------------------------
     (export-macro ERR-DATASTORE-NOT-FOUND)
 ; -----------------------------------------------------------------------------
     (export-macro MSG-SERVER-STARTED
                   MSG-SERVER-STOPPED)
 ; -----------------------------------------------------------------------------
+    (export-macro ROUTE-ID-REGEX)
+; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
 
 ; Helper constants.
-(defmacro EXIT-FAILURE () 1) ;    Failing exit status.
-(defmacro EXIT-SUCCESS () 0) ; Successful exit status.
+(defmacro EXIT-FAILURE ()    1) ;    Failing exit status.
+(defmacro EXIT-SUCCESS ()    0) ; Successful exit status.
+(defmacro EMPTY-STRING ()   "")
+(defmacro SPACE        ()  " ")
+(defmacro NEW-LINE     () "\n")
 
 ; Common error messages.
 (defmacro ERR-PORT-VALID-MUST-BE-POSITIVE-INT ()
@@ -44,6 +52,13 @@
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started on port ")
 (defmacro MSG-SERVER-STOPPED () "Server stopped"         )
+
+#| ----------------------------------------------------------------------------
+ | The regex pattern for the element to be excluded from a bus stops sequence:
+ | it is an arbitrary identifier of a route, which is not used
+ | in the routes processing anyhow.
+ |#
+(defmacro ROUTE-ID-REGEX () "^\\d+")
 
 #| ----------------------------------------------------------------------------
  | The minimum port number allowed.
