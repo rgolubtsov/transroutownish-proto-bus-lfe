@@ -41,10 +41,6 @@
     (let ((debug-log-enabled (element 2 settings)))
     (let ((datastore         (element 3 settings)))
 
-    (logger:debug (integer_to_list server-port))
-    (logger:debug (atom_to_list debug-log-enabled))
-    (logger:debug datastore)
-
     ; Slurping routes from the routes data store.
     (let ((routes- (file:read_file (filename:join
                    (code:priv_dir 'bus) datastore))))
@@ -56,23 +52,24 @@
         (init:stop (aux:EXIT-FAILURE)))
     ('true 'false))
 
-    (logger:debug (element 2 routes-)))))))
+    (logger:debug (element 2 routes-))
 
     (let ((app-name (atom_to_list (element 2 (application:get_application)))))
-
-    (logger:debug app-name)
 
     ; Opening the system logger.
     ; Calling <syslog.h> openlog(NULL, LOG_CONS | LOG_PID, LOG_DAEMON);
     (syslog:start) (let ((`#(ok ,syslog)
     (syslog:open app-name `(cons pid) 'daemon)))
 
-    (logger:info             (aux:MSG-SERVER-STARTED))
-    (syslog:log syslog 'info (aux:MSG-SERVER-STARTED))
+    (let ((server-port- (integer_to_list server-port)))
+
+    (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
+    (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))
 
     (let ((`#(ok ,pid) (bus-sup:start_link)))
 
-    `#(ok ,pid ,syslog)))) ; |syslog| will be returned as the value of |state|.
+    `#(ok ,pid ,syslog) ; <==|syslog| will be returned as the value of |state|.
+    ))))))))
 )
 
 #| ----------------------------------------------------------------------------
