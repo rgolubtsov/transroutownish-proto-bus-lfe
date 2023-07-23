@@ -69,10 +69,13 @@
     (syslog:start) (let ((`#(ok ,syslog)
     (syslog:open app-name `(cons pid) 'daemon)))
 
-    (let ((server-port- (integer_to_list server-port)))
-
-    (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
-    (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))
+    ; Starting up the bundled web server.
+    (bus-controller:startup `#(
+        ,server-port
+        ,debug-log-enabled
+        ,routes-list
+        ,syslog
+    ))
 
     (let ((`#(ok ,pid) (bus-sup:start_link)))
 
