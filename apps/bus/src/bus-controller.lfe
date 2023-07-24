@@ -36,12 +36,33 @@
     ; Starting up the Cowboy web server along with all their dependencies.
     (application:ensure_all_started 'cowboy)
 
-    ; TODO: Dispatch = cowboy_router:compile([...]), ...
+    (let ((dispatch (cowboy_router:compile `(
+        #(_ (
+            #(
+                ; GET /route/direct
+                ,(++ (aux:SLASH)(aux:REST-PREFIX)(aux:SLASH)(aux:REST-DIRECT))
+                bus-handler #M(
+                    debug-log-enabled ,debug-log-enabled
+                    routes-list       ,routes-list
+                    syslog            ,syslog
+                )
+            )
+        ))
+    ))))
+
+    (let ((status- (cowboy:start_clear 'bus-listener `(
+        #(port ,server-port)
+    ) `#M(
+        env #M(dispatch ,dispatch)
+    ))))
+
+    (logger:debug (atom_to_list (element 1 status-)))
+    (logger:debug ( pid_to_list (element 2 status-)))
 
     (let ((server-port- (integer_to_list server-port)))
 
     (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
-    (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))))))
+    (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))))))))
 )
 
 ; vim:set nu et ts=4 sw=4:
