@@ -25,7 +25,10 @@
                   SLASH
                   NEW-LINE)
 ; -----------------------------------------------------------------------------
-    (export-macro ERR-DATASTORE-NOT-FOUND)
+    (export-macro ERR-DATASTORE-NOT-FOUND
+                  ERR-CANNOT-START-SERVER
+                  ERR-ADDR-ALREADY-IN-USE
+                  ERR-SERV-UNKNOWN-REASON)
 ; -----------------------------------------------------------------------------
     (export-macro MSG-SERVER-STARTED
                   MSG-SERVER-STOPPED)
@@ -56,6 +59,12 @@
           "will be used instead."))
 (defmacro ERR-DATASTORE-NOT-FOUND ()
           "FATAL: Data store file not found. Quitting...")
+(defmacro ERR-CANNOT-START-SERVER ()
+          "FATAL: Cannot start server ")
+(defmacro ERR-ADDR-ALREADY-IN-USE ()
+          "due to address requested already in use. Quitting...")
+(defmacro ERR-SERV-UNKNOWN-REASON ()
+          "for an unknown reason. Quitting...")
 
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started on port ")
