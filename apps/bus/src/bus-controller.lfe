@@ -36,12 +36,40 @@
     ; Starting up the Cowboy web server along with all their dependencies.
     (application:ensure_all_started 'cowboy)
 
-    ; TODO: Dispatch = cowboy_router:compile([...]), ...
+    (let ((dispatch (cowboy_router:compile `(
+        #(_ (
+            #(
+                ; GET /route/direct
+                ,(++ (aux:SLASH)(aux:REST-PREFIX)(aux:SLASH)(aux:REST-DIRECT))
+                bus-handler #M(
+                    debug-log-enabled ,debug-log-enabled
+                    routes-list       ,routes-list
+                    syslog            ,syslog
+                )
+            )
+        ))
+    ))))
 
-    (let ((server-port- (integer_to_list server-port)))
+    (let ((status- (cowboy:start_clear 'bus-listener `(
+        #(port ,server-port)
+    ) `#M(
+        env #M(dispatch ,dispatch)
+    ))))
 
-    (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
-    (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))))))
+    (cond ((=:= (element 1 status-) 'error)
+       (if (=:= (element 2 status-) 'eaddrinuse)
+           (logger:critical (++ (aux:ERR-CANNOT-START-SERVER)
+                                (aux:ERR-ADDR-ALREADY-IN-USE)))
+           (logger:critical (++ (aux:ERR-CANNOT-START-SERVER)
+                                (aux:ERR-SERV-UNKNOWN-REASON))))
+
+       (init:stop (aux:EXIT-FAILURE)))
+    ('true
+       (let ((server-port- (integer_to_list server-port)))
+
+       (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
+       (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))
+    ))))))))
 )
 
 ; vim:set nu et ts=4 sw=4:

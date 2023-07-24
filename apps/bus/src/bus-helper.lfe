@@ -22,14 +22,24 @@
                   EXIT-SUCCESS
                   EMPTY-STRING
                   SPACE
+                  SLASH
                   NEW-LINE)
 ; -----------------------------------------------------------------------------
-    (export-macro ERR-DATASTORE-NOT-FOUND)
+    (export-macro ERR-DATASTORE-NOT-FOUND
+                  ERR-CANNOT-START-SERVER
+                  ERR-ADDR-ALREADY-IN-USE
+                  ERR-SERV-UNKNOWN-REASON)
 ; -----------------------------------------------------------------------------
     (export-macro MSG-SERVER-STARTED
                   MSG-SERVER-STOPPED)
 ; -----------------------------------------------------------------------------
     (export-macro ROUTE-ID-REGEX)
+; -----------------------------------------------------------------------------
+    (export-macro REST-PREFIX
+                  REST-DIRECT)
+; -----------------------------------------------------------------------------
+    (export-macro MIME-TYPE
+                  MIME-SUB-TYPE)
 ; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
@@ -39,6 +49,7 @@
 (defmacro EXIT-SUCCESS ()    0) ; Successful exit status.
 (defmacro EMPTY-STRING ()   "")
 (defmacro SPACE        ()  " ")
+(defmacro SLASH        ()  "/")
 (defmacro NEW-LINE     () "\n")
 
 ; Common error messages.
@@ -48,6 +59,12 @@
           "will be used instead."))
 (defmacro ERR-DATASTORE-NOT-FOUND ()
           "FATAL: Data store file not found. Quitting...")
+(defmacro ERR-CANNOT-START-SERVER ()
+          "FATAL: Cannot start server ")
+(defmacro ERR-ADDR-ALREADY-IN-USE ()
+          "due to address requested already in use. Quitting...")
+(defmacro ERR-SERV-UNKNOWN-REASON ()
+          "for an unknown reason. Quitting...")
 
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started on port ")
@@ -79,6 +96,14 @@
 (defmacro SAMPLE-ROUTES-PATH-PREFIX () "./"        )
 (defmacro SAMPLE-ROUTES-PATH-DIR    () "data/"     )
 (defmacro SAMPLE-ROUTES-FILENAME    () "routes.txt")
+
+; REST URI path-related constants.
+(defmacro REST-PREFIX () "route" )
+(defmacro REST-DIRECT () "direct")
+
+; HTTP response-related constants.
+(defmacro MIME-TYPE     () #"application")
+(defmacro MIME-SUB-TYPE () #"json"       )
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.
