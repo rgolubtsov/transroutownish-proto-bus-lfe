@@ -95,11 +95,15 @@ $ rebar3 tree
 ===> Fetching erlang_color v1.0.0
 ...
 ===> Verifying dependencies...
+===> Fetching cowboy v2.10.0
 ===> Fetching syslog v1.1.0
 ===> Fetching pc v1.14.0
 ===> Analyzing applications...
 ...
 └─ bus─0.0.13 (project app)
+   ├─ cowboy─2.10.0 (hex package)
+   │  ├─ cowlib─2.12.1 (hex package)
+   │  └─ ranch─1.8.0 (hex package)
    └─ syslog─1.1.0 (hex package)
 ```
 
