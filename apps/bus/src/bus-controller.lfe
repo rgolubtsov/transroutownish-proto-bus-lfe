@@ -56,13 +56,20 @@
         env #M(dispatch ,dispatch)
     ))))
 
-    (logger:debug (atom_to_list (element 1 status-)))
-    (logger:debug ( pid_to_list (element 2 status-)))
+    (cond ((=:= (element 1 status-) 'error)
+       (if (=:= (element 2 status-) 'eaddrinuse)
+           (logger:critical (++ (aux:ERR-CANNOT-START-SERVER)
+                                (aux:ERR-ADDR-ALREADY-IN-USE)))
+           (logger:critical (++ (aux:ERR-CANNOT-START-SERVER)
+                                (aux:ERR-SERV-UNKNOWN-REASON))))
 
-    (let ((server-port- (integer_to_list server-port)))
+       (init:stop (aux:EXIT-FAILURE)))
+    ('true
+       (let ((server-port- (integer_to_list server-port)))
 
-    (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
-    (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))))))))
+       (logger:info             (++ (aux:MSG-SERVER-STARTED) server-port-))
+       (syslog:log syslog 'info (++ (aux:MSG-SERVER-STARTED) server-port-)))
+    ))))))))
 )
 
 ; vim:set nu et ts=4 sw=4:
