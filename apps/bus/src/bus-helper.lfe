@@ -22,6 +22,7 @@
                   EXIT-SUCCESS
                   EMPTY-STRING
                   SPACE
+                  SLASH
                   NEW-LINE)
 ; -----------------------------------------------------------------------------
     (export-macro ERR-DATASTORE-NOT-FOUND)
@@ -31,6 +32,12 @@
 ; -----------------------------------------------------------------------------
     (export-macro ROUTE-ID-REGEX)
 ; -----------------------------------------------------------------------------
+    (export-macro REST-PREFIX
+                  REST-DIRECT)
+; -----------------------------------------------------------------------------
+    (export-macro MIME-TYPE
+                  MIME-SUB-TYPE)
+; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
 
@@ -39,6 +46,7 @@
 (defmacro EXIT-SUCCESS ()    0) ; Successful exit status.
 (defmacro EMPTY-STRING ()   "")
 (defmacro SPACE        ()  " ")
+(defmacro SLASH        ()  "/")
 (defmacro NEW-LINE     () "\n")
 
 ; Common error messages.
@@ -79,6 +87,14 @@
 (defmacro SAMPLE-ROUTES-PATH-PREFIX () "./"        )
 (defmacro SAMPLE-ROUTES-PATH-DIR    () "data/"     )
 (defmacro SAMPLE-ROUTES-FILENAME    () "routes.txt")
+
+; REST URI path-related constants.
+(defmacro REST-PREFIX () "route" )
+(defmacro REST-DIRECT () "direct")
+
+; HTTP response-related constants.
+(defmacro MIME-TYPE     () #"application")
+(defmacro MIME-SUB-TYPE () #"json"       )
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.
