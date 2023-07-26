@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-sup.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE/OTP port). Version 0.1.2
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.1.5
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -12,7 +12,7 @@
 ;
 
 #| ----------------------------------------------------------------------------
- | @version 0.1.2
+ | @version 0.1.5
  | @since   0.0.1
  |#
 (defmodule bus-sup
