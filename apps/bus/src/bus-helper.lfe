@@ -41,6 +41,9 @@
     (export-macro MIME-TYPE
                   MIME-SUB-TYPE)
 ; -----------------------------------------------------------------------------
+    (export-macro FROM
+                  TO)
+; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
 
@@ -104,6 +107,10 @@
 ; HTTP response-related constants.
 (defmacro MIME-TYPE     () #"application")
 (defmacro MIME-SUB-TYPE () #"json"       )
+
+; HTTP request parameter names.
+(defmacro FROM () #"from")
+(defmacro TO   () #"to"  )
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.

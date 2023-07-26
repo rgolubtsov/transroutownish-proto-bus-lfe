@@ -80,7 +80,17 @@
 (defun to-json (req state)
     "The so-called `ProvideCallback', used to return the response body."
 
-    `#("{\"direct\":false,\"from\":1,\"to\":100}" ,req ,state)
+    (let ((from 1))
+    (let ((to 100))
+    (let ((direct 'false))
+
+    ; TODO: Implement "Parsing and validating request params" mech.
+
+    `#(,(jsx:encode `#M(
+       ,(aux:FROM) ,from
+       ,(aux:TO)   ,to
+        direct     ,direct
+    )) ,req ,state))))
 )
 
 ; vim:set nu et ts=4 sw=4:
