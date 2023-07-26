@@ -96,6 +96,7 @@ $ rebar3 tree
 ...
 ===> Verifying dependencies...
 ===> Fetching cowboy v2.10.0
+===> Fetching jsx v3.1.0
 ===> Fetching syslog v1.1.0
 ===> Fetching pc v1.14.0
 ===> Analyzing applications...
@@ -104,6 +105,7 @@ $ rebar3 tree
    ├─ cowboy─2.10.0 (hex package)
    │  ├─ cowlib─2.12.1 (hex package)
    │  └─ ranch─1.8.0 (hex package)
+   ├─ jsx─3.1.0 (hex package)
    └─ syslog─1.1.0 (hex package)
 ```
 
