@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-helper.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE/OTP port). Version 0.1.2
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.1.5
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -12,7 +12,7 @@
 ;
 
 #| ----------------------------------------------------------------------------
- | @version 0.1.2
+ | @version 0.1.5
  | @since   0.0.5
  |#
 (defmodule aux
@@ -40,6 +40,9 @@
 ; -----------------------------------------------------------------------------
     (export-macro MIME-TYPE
                   MIME-SUB-TYPE)
+; -----------------------------------------------------------------------------
+    (export-macro FROM
+                  TO)
 ; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
@@ -104,6 +107,10 @@
 ; HTTP response-related constants.
 (defmacro MIME-TYPE     () #"application")
 (defmacro MIME-SUB-TYPE () #"json"       )
+
+; HTTP request parameter names.
+(defmacro FROM () #"from")
+(defmacro TO   () #"to"  )
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.

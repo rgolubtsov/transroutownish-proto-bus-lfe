@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-handler.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE/OTP port). Version 0.1.2
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.1.5
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -12,7 +12,7 @@
 ;
 
 #| ----------------------------------------------------------------------------
- | @version 0.1.2
+ | @version 0.1.5
  | @since   0.0.13
  |#
 (defmodule bus-handler
@@ -80,7 +80,17 @@
 (defun to-json (req state)
     "The so-called `ProvideCallback', used to return the response body."
 
-    `#("{\"direct\":false,\"from\":1,\"to\":100}" ,req ,state)
+    (let ((from 1))
+    (let ((to 100))
+    (let ((direct 'false))
+
+    ; TODO: Implement "Parsing and validating request params" mech.
+
+    `#(,(jsx:encode `#M(
+       ,(aux:FROM) ,from
+       ,(aux:TO)   ,to
+        direct     ,direct
+    )) ,req ,state))))
 )
 
 ; vim:set nu et ts=4 sw=4:
