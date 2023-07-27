@@ -22,7 +22,9 @@
                   EXIT-SUCCESS
                   EMPTY-STRING
                   SPACE
+                  V-BAR
                   SLASH
+                  EQUALS
                   NEW-LINE)
 ; -----------------------------------------------------------------------------
     (export-macro ERR-DATASTORE-NOT-FOUND
@@ -39,10 +41,10 @@
                   REST-DIRECT)
 ; -----------------------------------------------------------------------------
     (export-macro MIME-TYPE
-                  MIME-SUB-TYPE)
-; -----------------------------------------------------------------------------
-    (export-macro FROM
-                  TO)
+                  MIME-SUB-TYPE
+                  FROM
+                  TO
+                  ZERO)
 ; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
@@ -52,7 +54,9 @@
 (defmacro EXIT-SUCCESS ()    0) ; Successful exit status.
 (defmacro EMPTY-STRING ()   "")
 (defmacro SPACE        ()  " ")
+(defmacro V-BAR        ()  "|")
 (defmacro SLASH        ()  "/")
+(defmacro EQUALS       ()  "=")
 (defmacro NEW-LINE     () "\n")
 
 ; Common error messages.
@@ -111,6 +115,9 @@
 ; HTTP request parameter names.
 (defmacro FROM () #"from")
 (defmacro TO   () #"to"  )
+
+; HTTP request parameter default values.
+(defmacro ZERO () #"0")
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.
