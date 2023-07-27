@@ -80,6 +80,60 @@
 (defun to-json (req state)
     "The so-called `ProvideCallback', used to return the response body."
 
+    (let ((`#M(
+        debug-log-enabled ,debug-log-enabled
+        routes-list       ,routes-list
+        syslog            ,syslog
+    ) state))
+
+    (logger:debug (atom_to_list debug-log-enabled))
+;   (logger:debug routes-list)
+    (logger:debug (port_to_list syslog))
+    (logger:debug "----------------")
+
+    ; -------------------------------------------------------------------------
+    ; --- Parsing and validating request params - Begin -----------------------
+    ; -------------------------------------------------------------------------
+    (let ((`#M(from ,from- to ,to-) (cowboy_req:match_qs `(
+        #(from () ,(aux:ZERO))
+        #(to   () ,(aux:ZERO))
+    ) req)))
+
+    (logger:debug from-)
+    (logger:debug to-  )
+    (logger:debug "----------------")
+
+    (let ((from-- (if (is_boolean from-) (aux:ZERO) from-)))
+    (let ((to--   (if (is_boolean to-  ) (aux:ZERO) to-  )))
+
+    (logger:debug from--)
+    (logger:debug to--  )
+    (logger:debug "----------------")
+
+    (cond ((not debug-log-enabled)
+        (let ((FROM--- (binary:bin_to_list (aux:FROM))))
+        (let ((from--- (binary:bin_to_list from--    )))
+        (let ((TO---   (binary:bin_to_list (aux:TO  ))))
+        (let ((to---   (binary:bin_to_list to--      )))
+
+        (logger:debug                     (++ FROM--- (aux:EQUALS) from---
+            (aux:SPACE)(aux:V-BAR)(aux:SPACE) TO---   (aux:EQUALS) to---))
+
+        (syslog:log syslog 'debug         (++ FROM--- (aux:EQUALS) from---
+            (aux:SPACE)(aux:V-BAR)(aux:SPACE) TO---   (aux:EQUALS) to---)))))))
+    ('true 'false))
+
+;   (let ((from (try (binary_to_integer from--) (catch (error:badarg) 0))))
+;   (let ((to   (try (binary_to_integer to--  ) (catch (error:badarg) 0))))
+
+;   (logger:debug from)
+;   (logger:debug to  )
+    (logger:debug "----------------")
+    ))));))
+    ; -------------------------------------------------------------------------
+    ; --- Parsing and validating request params - End -------------------------
+    ; -------------------------------------------------------------------------
+
     (let ((from 1))
     (let ((to 100))
     (let ((direct 'false))
