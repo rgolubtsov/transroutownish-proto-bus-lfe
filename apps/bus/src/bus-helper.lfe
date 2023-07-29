@@ -30,7 +30,8 @@
     (export-macro ERR-DATASTORE-NOT-FOUND
                   ERR-CANNOT-START-SERVER
                   ERR-ADDR-ALREADY-IN-USE
-                  ERR-SERV-UNKNOWN-REASON)
+                  ERR-SERV-UNKNOWN-REASON
+                  ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS)
 ; -----------------------------------------------------------------------------
     (export-macro MSG-SERVER-STARTED
                   MSG-SERVER-STOPPED)
@@ -44,7 +45,8 @@
                   MIME-SUB-TYPE
                   FROM
                   TO
-                  ZERO)
+                  ZERO
+                  HTTP-400-BAD-REQ)
 ; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
@@ -72,6 +74,9 @@
           "due to address requested already in use. Quitting...")
 (defmacro ERR-SERV-UNKNOWN-REASON ()
           "for an unknown reason. Quitting...")
+(defmacro ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS ()
+         #"Request parameters must take positive integer values, "
+         #"in the range 1 .. 2,147,483,647. Please check your inputs.")
 
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started on port ")
@@ -118,6 +123,9 @@
 
 ; HTTP request parameter default values.
 (defmacro ZERO () #"0")
+
+; HTTP response status codes.
+(defmacro HTTP-400-BAD-REQ () 400)
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.
