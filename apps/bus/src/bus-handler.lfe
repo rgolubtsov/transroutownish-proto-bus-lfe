@@ -87,9 +87,6 @@
     ) state))
 
     (logger:debug (atom_to_list debug-log-enabled))
-;   (logger:debug routes-list)
-    (logger:debug (port_to_list syslog))
-    (logger:debug "----------------")
 
     ; -------------------------------------------------------------------------
     ; --- Parsing and validating request params - Begin -----------------------
@@ -99,16 +96,8 @@
         #(to   () ,(aux:ZERO))
     ) req)))
 
-    (logger:debug from-)
-    (logger:debug to-  )
-    (logger:debug "----------------")
-
     (let ((from-- (if (is_boolean from-) (aux:ZERO) from-)))
     (let ((to--   (if (is_boolean to-  ) (aux:ZERO) to-  )))
-
-    (logger:debug from--)
-    (logger:debug to--  )
-    (logger:debug "----------------")
 
     (cond ((not debug-log-enabled)
         (let ((FROM--- (binary:bin_to_list (aux:FROM))))
@@ -123,28 +112,38 @@
             (aux:SPACE)(aux:V-BAR)(aux:SPACE) TO---   (aux:EQUALS) to---)))))))
     ('true 'false))
 
-;   (let ((from (try (binary_to_integer from--) (catch (error:badarg) 0))))
-;   (let ((to   (try (binary_to_integer to--  ) (catch (error:badarg) 0))))
+    (let ((from (try(binary_to_integer from--) (catch(`#(error badarg ,_)0)))))
+    (let ((to   (try(binary_to_integer to--  ) (catch(`#(error badarg ,_)0)))))
 
-;   (logger:debug from)
-;   (logger:debug to  )
-    (logger:debug "----------------")
-    ))));))
+    (logger:debug (integer_to_list from))
+    (logger:debug (integer_to_list to  ))
+
+    (let ((is-request-malformed (if (or (< from 1) (< to 1)) 'true 'false)))
     ; -------------------------------------------------------------------------
     ; --- Parsing and validating request params - End -------------------------
     ; -------------------------------------------------------------------------
 
-    (let ((from 1))
-    (let ((to 100))
-    (let ((direct 'false))
+    (cond (is-request-malformed
+        ; Not using the malformed_request/2 callback when responding
+        ; with the HTTP 400 Bad Request status code; instead setting
+        ; the response body and then sending the response, specifying
+        ; the status code explicitly. All the required headers are already
+        ; there, including the content-type, which is set correctly.
+        (cowboy_req:reply (aux:HTTP-400-BAD-REQ) (cowboy_req:set_resp_body
+        (jsx:encode `#M(
+            error ,(aux:ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS)
+        )) req)))
+    ('true
+        ; Performing the routes processing to find out the direct route.
+        (let ((direct (if (=:= from to) 'false
+            'true))) ; <== TODO: Call find-direct-route/4 here.
 
-    ; TODO: Implement "Parsing and validating request params" mech.
-
-    `#(,(jsx:encode `#M(
-       ,(aux:FROM) ,from
-       ,(aux:TO)   ,to
-        direct     ,direct
-    )) ,req ,state))))
+        `#(,(jsx:encode `#M(
+           ,(aux:FROM) ,from
+           ,(aux:TO)   ,to
+            direct     ,direct
+        )) ,req ,state)))
+    ))))))))
 )
 
 ; vim:set nu et ts=4 sw=4:
