@@ -97,7 +97,7 @@
     (let ((from-- (if (is_boolean from-) (aux:ZERO) from-)))
     (let ((to--   (if (is_boolean to-  ) (aux:ZERO) to-  )))
 
-    (cond ((not debug-log-enabled)
+    (cond (debug-log-enabled
         (let ((FROM--- (binary:bin_to_list (aux:FROM))))
         (let ((from--- (binary:bin_to_list from--    )))
         (let ((TO---   (binary:bin_to_list (aux:TO  ))))
@@ -159,7 +159,7 @@
 
     (try (progn
         (lists:foldl (lambda (route i)
-            (if (not debug-log-enabled)
+            (if debug-log-enabled
                 (logger:debug (++ (integer_to_list i)
                     (aux:SPACE)(aux:EQUALS)(aux:SPACE) route))
                 'false)
@@ -173,7 +173,7 @@
                 (let ((route-from
                     (string:slice route (- (string:str route from) 1))))
 
-                (if (not debug-log-enabled)
+                (if debug-log-enabled
                     (logger:debug (++ from
                         (aux:SPACE)(aux:V-BAR)(aux:SPACE) route-from))
                     'false)
