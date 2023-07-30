@@ -36,7 +36,9 @@
     (export-macro MSG-SERVER-STARTED
                   MSG-SERVER-STOPPED)
 ; -----------------------------------------------------------------------------
-    (export-macro ROUTE-ID-REGEX)
+    (export-macro ROUTE-ID-REGEX
+                  SEQ1-REGEX
+                  SEQ2-REGEX)
 ; -----------------------------------------------------------------------------
     (export-macro REST-PREFIX
                   REST-DIRECT)
@@ -88,6 +90,18 @@
  | in the routes processing anyhow.
  |#
 (defmacro ROUTE-ID-REGEX () "^\\d+")
+
+#| ----------------------------------------------------------------------------
+ | The regex pattern for the leading part of a bus stops sequence,
+ | before the matching element.
+ |#
+(defmacro SEQ1-REGEX () ".*\\s")
+
+#| ----------------------------------------------------------------------------
+ | The regex pattern for the trailing part of a bus stops sequence,
+ | after the matching element.
+ |#
+(defmacro SEQ2-REGEX () "\\s.*")
 
 #| ----------------------------------------------------------------------------
  | The minimum port number allowed.
