@@ -75,8 +75,8 @@
 (defmacro ERR-SERV-UNKNOWN-REASON ()
           "for an unknown reason. Quitting...")
 (defmacro ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS ()
-         #"Request parameters must take positive integer values, "
-         #"in the range 1 .. 2,147,483,647. Please check your inputs.")
+      (++ "Request parameters must take positive integer values, "
+          "in the range 1 .. 2,147,483,647. Please check your inputs."))
 
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started on port ")
