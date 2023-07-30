@@ -86,8 +86,6 @@
         syslog            ,syslog
     ) state))
 
-    (logger:debug (atom_to_list debug-log-enabled))
-
     ; -------------------------------------------------------------------------
     ; --- Parsing and validating request params - Begin -----------------------
     ; -------------------------------------------------------------------------
@@ -114,9 +112,6 @@
 
     (let ((from (try(binary_to_integer from--) (catch(`#(error badarg ,_)0)))))
     (let ((to   (try(binary_to_integer to--  ) (catch(`#(error badarg ,_)0)))))
-
-    (logger:debug (integer_to_list from))
-    (logger:debug (integer_to_list to  ))
 
     (let ((is-request-malformed (if (or (< from 1) (< to 1)) 'true 'false)))
     ; -------------------------------------------------------------------------
