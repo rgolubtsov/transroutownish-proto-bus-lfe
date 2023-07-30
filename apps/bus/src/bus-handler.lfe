@@ -171,7 +171,7 @@
 
             (let ((match-from
                 (re:run route (++ (aux:SEQ1-REGEX) from (aux:SEQ2-REGEX)))))
-            (cond ((=:= (element 1 match-from) 'match)
+            (if (is_tuple match-from)(cond ((=:= (element 1 match-from) 'match)
                 ; Pinning in the starting bus stop point, if it's found.
                 ; Next, searching for the ending bus stop point
                 ; on the current route, beginning at the pinned point.
@@ -185,8 +185,9 @@
 
                 (let ((match-to (re:run route-from
                     (++ (aux:SEQ1-REGEX) to (aux:SEQ2-REGEX)))))
-                (if (=:= (element 1 match-to) 'match) (throw 'true) 'false))))
-            ('true 'false)))
+                (if (is_tuple match-to) (if (=:= (element 1 match-to) 'match)
+                    (throw 'true) 'false) 'false))))
+            ('true 'false)) 'false))
 
             (+ i 1)
         ) 1 routes-list) 'false)
