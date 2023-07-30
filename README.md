@@ -36,6 +36,14 @@ One may consider this project has to be suitable for a wide variety of applied a
 
 ---
 
+## Table of Contents
+
+* **[Building](#building)**
+* **[Running](#running)**
+* **[Consuming](#consuming)**
+  * **[Logging](#logging)**
+  * **[Error handling](#error-handling)**
+
 ## Building
 
 The microservice is known to be built and run successfully under **Ubuntu Server (Ubuntu 22.04.2 LTS x86-64)**. Install the necessary dependencies (`erlang-nox`, `erlang-dev`, `rebar3`, `make`, `docker.io`):
@@ -101,7 +109,7 @@ $ rebar3 tree
 ===> Fetching pc v1.14.0
 ===> Analyzing applications...
 ...
-└─ bus─0.1.5 (project app)
+└─ bus─0.2.2 (project app)
    ├─ cowboy─2.10.0 (hex package)
    │  ├─ cowlib─2.12.1 (hex package)
    │  └─ ranch─1.8.0 (hex package)
@@ -153,5 +161,72 @@ $ ./_build/default/rel/bus/bin/bus daemon; echo $?
 ```
 
 The `daemon_attach` command then allows connecting to the microservice to make interactions with them. But the latter is not required at all regarding the true purpose of the microservice. And it can be stopped again with the `stop` command in the same terminal session.
+
+## Consuming
+
+All the routes are contained in a so-called **routes data store**. It is located in the `data/` directory. The default filename for it is `routes.txt`, but it can be specified explicitly (if intended to use another one) in the `apps/bus/src/bus.app.src` file.
+
+**Identify**, whether there is a direct route between two bus stops with IDs given in the **HTTP GET** request, searching for them against the underlying **routes data store**:
+
+HTTP request param | Sample value | Another sample value | Yet another sample value
+------------------ | ------------ | -------------------- | ------------------------
+`from`             | `4838`       | `82`                 | `2147483647`
+`to`               | `524987`     | `35390`              | `1`
+
+The direct route is found:
+
+```
+$ curl 'http://localhost:8765/route/direct?from=4838&to=524987'
+{"direct":true,"from":4838,"to":524987}
+```
+
+The direct route is not found:
+
+```
+$ curl 'http://localhost:8765/route/direct?from=82&to=35390'
+{"direct":false,"from":82,"to":35390}
+```
+
+### Logging
+
+The microservice has the ability to log messages to a logfile and to the Unix syslog facility. Logs can be seen and analyzed by `tail`ing the `_build/default/rel/bus/log/bus.log` logfile:
+
+```
+$ tail -f _build/default/rel/bus/log/bus.log
+...
+[2023-07-31|01:20:11.256584+03:00][info]  Server started on port 8765
+[2023-07-31|01:20:11.257210+03:00][info]  Application: bus. Started at: bus@localhost.
+[2023-07-31|01:21:25.207825+03:00][debug]  from=4838 | to=524987
+[2023-07-31|01:21:50.882326+03:00][debug]  from=82 | to=35390
+[2023-07-31|01:25:35.616223+03:00][info]  Server stopped
+```
+
+Messages registered by the Unix system logger can be seen and analyzed using the `journalctl` utility:
+
+```
+$ journalctl -f
+...
+Jul 31 01:20:10 <hostname> bus[<pid>]: Starting up
+Jul 31 01:20:11 <hostname> bus[<pid>]: Server started on port 8765
+Jul 31 01:21:25 <hostname> bus[<pid>]: from=4838 | to=524987
+Jul 31 01:21:50 <hostname> bus[<pid>]: from=82 | to=35390
+Jul 31 01:25:35 <hostname> bus[<pid>]: Server stopped
+```
+
+### Error handling
+
+When the query string passed in a request, contains inappropriate input, or the URI endpoint doesn't contain anything else at all after its path, the microservice will respond with the **HTTP 400 Bad Request** status code, including a specific response body in JSON representation, like the following:
+
+```
+$ curl 'http://localhost:8765/route/direct?from=qwerty4838&to=-i-.;--089asdf../nj524987'
+{"error":"Request parameters must take positive integer values, in the range 1 .. 2,147,483,647. Please check your inputs."}
+```
+
+Or even simpler:
+
+```
+$ curl http://localhost:8765/route/direct
+{"error":"Request parameters must take positive integer values, in the range 1 .. 2,147,483,647. Please check your inputs."}
+```
 
 **TBD** :dvd:

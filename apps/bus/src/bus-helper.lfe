@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-helper.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE/OTP port). Version 0.1.5
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.2.2
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -12,7 +12,7 @@
 ;
 
 #| ----------------------------------------------------------------------------
- | @version 0.1.5
+ | @version 0.2.2
  | @since   0.0.5
  |#
 (defmodule aux
@@ -22,27 +22,33 @@
                   EXIT-SUCCESS
                   EMPTY-STRING
                   SPACE
+                  V-BAR
                   SLASH
+                  EQUALS
                   NEW-LINE)
 ; -----------------------------------------------------------------------------
     (export-macro ERR-DATASTORE-NOT-FOUND
                   ERR-CANNOT-START-SERVER
                   ERR-ADDR-ALREADY-IN-USE
-                  ERR-SERV-UNKNOWN-REASON)
+                  ERR-SERV-UNKNOWN-REASON
+                  ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS)
 ; -----------------------------------------------------------------------------
     (export-macro MSG-SERVER-STARTED
                   MSG-SERVER-STOPPED)
 ; -----------------------------------------------------------------------------
-    (export-macro ROUTE-ID-REGEX)
+    (export-macro ROUTE-ID-REGEX
+                  SEQ1-REGEX
+                  SEQ2-REGEX)
 ; -----------------------------------------------------------------------------
     (export-macro REST-PREFIX
                   REST-DIRECT)
 ; -----------------------------------------------------------------------------
     (export-macro MIME-TYPE
-                  MIME-SUB-TYPE)
-; -----------------------------------------------------------------------------
-    (export-macro FROM
-                  TO)
+                  MIME-SUB-TYPE
+                  FROM
+                  TO
+                  ZERO
+                  HTTP-400-BAD-REQ)
 ; -----------------------------------------------------------------------------
     (export (-get-settings 0))
 )
@@ -52,7 +58,9 @@
 (defmacro EXIT-SUCCESS ()    0) ; Successful exit status.
 (defmacro EMPTY-STRING ()   "")
 (defmacro SPACE        ()  " ")
+(defmacro V-BAR        ()  "|")
 (defmacro SLASH        ()  "/")
+(defmacro EQUALS       ()  "=")
 (defmacro NEW-LINE     () "\n")
 
 ; Common error messages.
@@ -68,6 +76,9 @@
           "due to address requested already in use. Quitting...")
 (defmacro ERR-SERV-UNKNOWN-REASON ()
           "for an unknown reason. Quitting...")
+(defmacro ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS ()
+      (++ "Request parameters must take positive integer values, "
+          "in the range 1 .. 2,147,483,647. Please check your inputs."))
 
 ; Common notification messages.
 (defmacro MSG-SERVER-STARTED () "Server started on port ")
@@ -79,6 +90,18 @@
  | in the routes processing anyhow.
  |#
 (defmacro ROUTE-ID-REGEX () "^\\d+")
+
+#| ----------------------------------------------------------------------------
+ | The regex pattern for the leading part of a bus stops sequence,
+ | before the matching element.
+ |#
+(defmacro SEQ1-REGEX () ".*\\s")
+
+#| ----------------------------------------------------------------------------
+ | The regex pattern for the trailing part of a bus stops sequence,
+ | after the matching element.
+ |#
+(defmacro SEQ2-REGEX () "\\s.*")
 
 #| ----------------------------------------------------------------------------
  | The minimum port number allowed.
@@ -111,6 +134,12 @@
 ; HTTP request parameter names.
 (defmacro FROM () #"from")
 (defmacro TO   () #"to"  )
+
+; HTTP request parameter default values.
+(defmacro ZERO () #"0")
+
+; HTTP response status codes.
+(defmacro HTTP-400-BAD-REQ () 400)
 
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.
