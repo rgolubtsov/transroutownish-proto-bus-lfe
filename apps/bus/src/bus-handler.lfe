@@ -136,7 +136,7 @@
     ('true
         ; Performing the routes processing to find out the direct route.
         (let ((direct (if (=:= from to) 'false
-            'true))) ; <== TODO: Call find-direct-route/4 here.
+            (find-direct-route debug-log-enabled routes-list from to))))
 
         `#(,(jsx:encode `#M(
            ,(aux:FROM) ,from
@@ -144,6 +144,55 @@
             direct     ,direct
         )) ,req ,state)))
     ))))))))
+)
+
+#| ----------------------------------------------------------------------------
+ | @param debug-log-enabled The debug logging enabler.
+ | @param routes-list       The list containing all available routes.
+ | @param from-             The starting bus stop point.
+ | @param to-               The ending   bus stop point.
+ |
+ | @returns `true' if the direct route is found, `false' otherwise.
+ |#
+(defun find-direct-route (debug-log-enabled routes-list from- to-)
+    "Performs the routes processing (onto bus stops sequences) to identify
+     and return whether a particular interval between two bus stop points
+     given is direct (i.e. contains in any of the routes), or not."
+
+    (let ((from (integer_to_list from-)))
+    (let ((to   (integer_to_list to-  )))
+
+    (try (progn
+        (lists:foldl (lambda (route i)
+            (if (not debug-log-enabled)
+                (logger:debug (++ (integer_to_list i)
+                    (aux:SPACE)(aux:EQUALS)(aux:SPACE) route))
+                'false)
+
+            (let ((match-from
+                (re:run route (++ (aux:SEQ1-REGEX) from (aux:SEQ2-REGEX)))))
+            (cond ((=:= (element 1 match-from) 'match)
+                ; Pinning in the starting bus stop point, if it's found.
+                ; Next, searching for the ending bus stop point
+                ; on the current route, beginning at the pinned point.
+                (let ((route-from
+                    (string:slice route (- (string:str route from) 1))))
+
+                (if (not debug-log-enabled)
+                    (logger:debug (++ from
+                        (aux:SPACE)(aux:V-BAR)(aux:SPACE) route-from))
+                    'false)
+
+                (let ((match-to (re:run route-from
+                    (++ (aux:SEQ1-REGEX) to (aux:SEQ2-REGEX)))))
+                (if (=:= (element 1 match-to) 'match) (throw 'true) 'false))))
+            ('true 'false)))
+
+            (+ i 1)
+        ) 1 routes-list) 'false)
+    (catch
+        (`#(throw true ,_) 'true)
+    ))))
 )
 
 ; vim:set nu et ts=4 sw=4:
