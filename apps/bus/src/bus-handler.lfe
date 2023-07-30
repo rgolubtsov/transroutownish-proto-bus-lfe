@@ -131,7 +131,7 @@
         ; there, including the content-type, which is set correctly.
         (cowboy_req:reply (aux:HTTP-400-BAD-REQ) (cowboy_req:set_resp_body
         (jsx:encode `#M(
-            error ,(aux:ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS)
+            error ,(list_to_binary (aux:ERR-REQ-PARAMS-MUST-BE-POSITIVE-INTS))
         )) req)))
     ('true
         ; Performing the routes processing to find out the direct route.
