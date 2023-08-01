@@ -1,7 +1,7 @@
 ;
 ; apps/bus/src/bus-helper.lfe
 ; =============================================================================
-; Urban bus routing microservice prototype (LFE/OTP port). Version 0.2.2
+; Urban bus routing microservice prototype (LFE/OTP port). Version 0.3.0
 ; =============================================================================
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
@@ -12,7 +12,7 @@
 ;
 
 #| ----------------------------------------------------------------------------
- | @version 0.2.2
+ | @version 0.3.0
  | @since   0.0.5
  |#
 (defmodule aux
