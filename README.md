@@ -71,11 +71,14 @@ The LFE (Lisp Flavoured Erlang) distribution can be downloaded and installed aut
 **Build** the microservice using **Rebar3** (and its LFE plugin):
 
 ```
-$ rebar3 lfe clean
+$ rebar3         lfe clean;   \
+  rebar3 as prod lfe clean
 ...
-$ rebar3     compile
+$ rebar3             compile; \
+  rebar3 as prod     compile
 ...
-$ rebar3 lfe release
+$ rebar3         lfe release; \
+  rebar3 as prod lfe release
 ...
 ```
 
@@ -86,7 +89,7 @@ $ make clean
 ...
 $ make      # <== Compilation phase.
 ...
-$ make all  # <== Assembling a release of the microservice.
+$ make all  # <== Assembling releases of the microservice.
 ...
 ```
 
@@ -137,21 +140,21 @@ $ sudo docker build -ttransroutownish/buslfe .
 **Run** the microservice using its startup script along with the `foreground` command, that is meant "*Start release with output to stdout*":
 
 ```
-$ ./_build/default/rel/bus/bin/bus foreground; echo $?
+$ ./_build/prod/rel/bus/bin/bus foreground; echo $?
 ...
 ```
 
 The microservice then can be stopped, again by using its startup script along with the `stop` command, that is meant "*Stop the running node*". It should be issued in another terminal session, not the current one:
 
 ```
-$ ./_build/default/rel/bus/bin/bus stop; echo $?
+$ ./_build/prod/rel/bus/bin/bus stop; echo $?
 0
 ```
 
 To identify, which commands are available and what they mean, the startup script can be run without specifying a command or arguments:
 
 ```
-$ ./_build/default/rel/bus/bin/bus
+$ ./_build/prod/rel/bus/bin/bus
 Usage: bus [COMMAND] [ARGS]
 
 Commands:
@@ -171,7 +174,7 @@ Commands:
 Thus, to **run** the microservice as a daemon, in the background, the `daemon` command should be used instead:
 
 ```
-$ ./_build/default/rel/bus/bin/bus daemon; echo $?
+$ ./_build/prod/rel/bus/bin/bus daemon; echo $?
 0
 ```
 
@@ -214,10 +217,10 @@ $ curl 'http://localhost:8765/route/direct?from=82&to=35390'
 
 ### Logging
 
-The microservice has the ability to log messages to a logfile and to the Unix syslog facility. Logs can be seen and analyzed by `tail`ing the `_build/default/rel/bus/log/bus.log` logfile:
+The microservice has the ability to log messages to a logfile and to the Unix syslog facility. Logs can be seen and analyzed by `tail`ing the `_build/prod/rel/bus/log/bus.log` logfile:
 
 ```
-$ tail -f _build/default/rel/bus/log/bus.log
+$ tail -f _build/prod/rel/bus/log/bus.log
 ...
 [2023-07-31|01:20:11.256584+03:00][info]  Server started on port 8765
 [2023-07-31|01:20:11.257210+03:00][info]  Application: bus. Started at: bus@localhost.
