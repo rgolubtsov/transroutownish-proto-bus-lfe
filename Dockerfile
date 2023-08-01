@@ -38,7 +38,7 @@ RUN        ["apk", "add", "libstdc++"   ]
 RUN        ["apk", "add", "libcrypto1.1"]
 USER       daemon
 WORKDIR    var/tmp
-COPY       --from=build var/tmp/bus/_build/default/rel ./
+COPY       --from=build var/tmp/bus/_build/prod/rel ./
 ENTRYPOINT ["bus/bin/bus", "foreground"]
 
 # vim:set nu ts=4 sw=4:
