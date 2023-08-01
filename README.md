@@ -39,7 +39,9 @@ One may consider this project has to be suitable for a wide variety of applied a
 ## Table of Contents
 
 * **[Building](#building)**
+  * **[Creating a Docker image](#creating-a-docker-image)**
 * **[Running](#running)**
+  * **[Running a Docker image](#running-a-docker-image)**
 * **[Consuming](#consuming)**
   * **[Logging](#logging)**
   * **[Error handling](#error-handling)**
@@ -117,6 +119,19 @@ $ rebar3 tree
    └─ syslog─1.1.0 (hex package)
 ```
 
+### Creating a Docker image
+
+**Build** a Docker image for the microservice:
+
+```
+$ # Pull the Erlang image first, if not already there:
+$ sudo docker pull erlang:alpine
+...
+$ # Then build the microservice image:
+$ sudo docker build -ttransroutownish/buslfe .
+...
+```
+
 ## Running
 
 **Run** the microservice using its startup script along with the `foreground` command, that is meant "*Start release with output to stdout*":
@@ -161,6 +176,16 @@ $ ./_build/default/rel/bus/bin/bus daemon; echo $?
 ```
 
 The `daemon_attach` command then allows connecting to the microservice to make interactions with them. But the latter is not required at all regarding the true purpose of the microservice. And it can be stopped again with the `stop` command in the same terminal session.
+
+### Running a Docker image
+
+**Run** a Docker image of the microservice, deleting all stopped containers prior to that:
+
+```
+$ sudo docker rm `sudo docker ps -aq`; \
+  export PORT=8765 && sudo docker run -dp${PORT}:${PORT} --name buslfe transroutownish/buslfe; echo $?
+...
+```
 
 ## Consuming
 
