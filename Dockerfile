@@ -26,8 +26,8 @@ COPY       rebar.config bus/
 WORKDIR    bus
 # Setting the HOME env var forcing Rebar3 to create ".cache/rebar3/" locally.
 ENV        HOME=.
-RUN        ["rebar3",        "compile"]
-RUN        ["rebar3", "lfe", "release"]
+RUN        ["rebar3", "as", "prod",        "compile"]
+RUN        ["rebar3", "as", "prod", "lfe", "release"]
 
 # === Stage 2: Run the microservice ===========================================
 FROM       alpine
