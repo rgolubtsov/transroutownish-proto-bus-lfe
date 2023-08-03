@@ -305,7 +305,7 @@ $ curl 'http://localhost:8765/route/direct?from=82&to=35390'
 
 ### Logging
 
-The microservice has the ability to log messages to a logfile and to the Unix syslog facility. Logs can be seen and analyzed by `tail`ing the `_build/prod/rel/bus/log/bus.log` logfile:
+The microservice has the ability to log messages to a logfile and to the Unix syslog facility. When running under Ubuntu Server (not in a Docker container), logs can be seen and analyzed in an ordinary fashion, by `tail`ing the `_build/prod/rel/bus/log/bus.log` logfile:
 
 ```
 $ tail -f _build/prod/rel/bus/log/bus.log
@@ -327,6 +327,30 @@ Aug 03 19:00:23 <hostname> bus[<pid>]: Server started on port 8765
 Aug 03 19:01:25 <hostname> bus[<pid>]: from=4838 | to=524987
 Aug 03 19:01:50 <hostname> bus[<pid>]: from=82 | to=35390
 Aug 03 19:05:05 <hostname> bus[<pid>]: Server stopped
+```
+
+Inside the running container logs might be queried also by `tail`ing the `bus/log/bus.log` logfile:
+
+```
+/var/tmp $ tail -f bus/log/bus.log
+...
+[2023-08-03|18:10:19.857665+00:00][info]  Server started on port 8765
+[2023-08-03|18:10:19.858003+00:00][info]  Application: bus. Started at: bus@<container_id>.
+[2023-08-03|18:30:30.573196+00:00][debug]  from=4838 | to=524987
+[2023-08-03|18:30:40.973891+00:00][debug]  from=82 | to=35390
+```
+
+And of course Docker itself gives the possibility to read log messages by using the corresponding command for that:
+
+```
+$ sudo docker logs -f buslfe
+...
+[2023-08-03|18:10:19.857665+00:00][info]  Server started on port 8765
+[2023-08-03|18:10:19.858003+00:00][info]  Application: bus. Started at: bus@<container_id>.
+[2023-08-03|18:30:30.573196+00:00][debug]  from=4838 | to=524987
+[2023-08-03|18:30:40.973891+00:00][debug]  from=82 | to=35390
+[2023-08-03|18:50:12.390989+00:00][notice]  SIGTERM received - shutting down
+[2023-08-03|18:50:12.391744+00:00][info]  Server stopped
 ```
 
 ### Error handling
