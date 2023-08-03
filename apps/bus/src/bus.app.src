@@ -1,7 +1,7 @@
 %
 % apps/bus/src/bus.app.src
 % =============================================================================
-% Urban bus routing microservice prototype (LFE/OTP port). Version 0.3.0
+% Urban bus routing microservice prototype (LFE/OTP port). Version 0.3.2
 % =============================================================================
 % An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 % as a microservice, implementing a simple urban bus routing prototype.
@@ -13,7 +13,7 @@
 
 {application, bus, [
     {description,  "Urban bus routing microservice prototype."},
-    {vsn,          "0.3.0"},
+    {vsn,          "0.3.2"},
     {licenses,     ["MIT License"]},
     {links,        []},
     {modules,      []},

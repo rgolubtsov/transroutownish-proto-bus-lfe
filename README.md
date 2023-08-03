@@ -114,7 +114,7 @@ $ rebar3 tree
 ===> Fetching pc v1.14.0
 ===> Analyzing applications...
 ...
-└─ bus─0.3.0 (project app)
+└─ bus─0.3.2 (project app)
    ├─ cowboy─2.10.0 (hex package)
    │  ├─ cowlib─2.12.1 (hex package)
    │  └─ ranch─1.8.0 (hex package)
@@ -222,11 +222,11 @@ The microservice has the ability to log messages to a logfile and to the Unix sy
 ```
 $ tail -f _build/prod/rel/bus/log/bus.log
 ...
-[2023-07-31|01:20:11.256584+03:00][info]  Server started on port 8765
-[2023-07-31|01:20:11.257210+03:00][info]  Application: bus. Started at: bus@localhost.
-[2023-07-31|01:21:25.207825+03:00][debug]  from=4838 | to=524987
-[2023-07-31|01:21:50.882326+03:00][debug]  from=82 | to=35390
-[2023-07-31|01:25:35.616223+03:00][info]  Server stopped
+[2023-08-03|19:00:23.124525+03:00][info]  Server started on port 8765
+[2023-08-03|19:00:23.124980+03:00][info]  Application: bus. Started at: bus@localhost.
+[2023-08-03|19:01:25.207826+03:00][debug]  from=4838 | to=524987
+[2023-08-03|19:01:50.882327+03:00][debug]  from=82 | to=35390
+[2023-08-03|19:05:05.518063+03:00][info]  Server stopped
 ```
 
 Messages registered by the Unix system logger can be seen and analyzed using the `journalctl` utility:
@@ -234,11 +234,11 @@ Messages registered by the Unix system logger can be seen and analyzed using the
 ```
 $ journalctl -f
 ...
-Jul 31 01:20:10 <hostname> bus[<pid>]: Starting up
-Jul 31 01:20:11 <hostname> bus[<pid>]: Server started on port 8765
-Jul 31 01:21:25 <hostname> bus[<pid>]: from=4838 | to=524987
-Jul 31 01:21:50 <hostname> bus[<pid>]: from=82 | to=35390
-Jul 31 01:25:35 <hostname> bus[<pid>]: Server stopped
+Aug 03 19:00:22 <hostname> bus[<pid>]: Starting up
+Aug 03 19:00:23 <hostname> bus[<pid>]: Server started on port 8765
+Aug 03 19:01:25 <hostname> bus[<pid>]: from=4838 | to=524987
+Aug 03 19:01:50 <hostname> bus[<pid>]: from=82 | to=35390
+Aug 03 19:05:05 <hostname> bus[<pid>]: Server stopped
 ```
 
 ### Error handling
