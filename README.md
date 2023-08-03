@@ -42,6 +42,7 @@ One may consider this project has to be suitable for a wide variety of applied a
   * **[Creating a Docker image](#creating-a-docker-image)**
 * **[Running](#running)**
   * **[Running a Docker image](#running-a-docker-image)**
+  * **[Exploring a Docker image payload](#exploring-a-docker-image-payload)**
 * **[Consuming](#consuming)**
   * **[Logging](#logging)**
   * **[Error handling](#error-handling)**
@@ -190,6 +191,93 @@ $ sudo docker rm `sudo docker ps -aq`; \
 ...
 ```
 
+### Exploring a Docker image payload
+
+The following is not necessary but might be considered interesting &mdash; to look up into the running container, and check out that the microservice's startup script, application BEAMs, log, and routes data store are at their expected places and in effect:
+
+```
+$ sudo docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                    CREATED             STATUS             PORTS                                       NAMES
+<container_id> transroutownish/buslfe   "bus/bin/bus foregro..."   About an hour ago   Up About an hour   0.0.0.0:8765->8765/tcp, :::8765->8765/tcp   buslfe
+$
+$ sudo docker exec -it buslfe sh; echo $?
+/var/tmp $
+/var/tmp $ bus/erts-14.0.2/bin/erl -version
+Erlang (SMP,ASYNC_THREADS) (BEAM) emulator version 14.0.2
+/var/tmp $
+/var/tmp $ ls -al
+total 20
+drwxrwxrwt    1 root     root          4096 Aug  3 18:01 .
+drwxr-xr-x    1 root     root          4096 Jan  9  2023 ..
+drwxr-xr-x    1 daemon   daemon        4096 Aug  3 18:10 bus
+/var/tmp $
+/var/tmp $ ls -al bus/
+total 32
+drwxr-xr-x    1 daemon   daemon        4096 Aug  3 18:10 .
+drwxrwxrwt    1 root     root          4096 Aug  3 18:01 ..
+drwxr-xr-x    2 daemon   daemon        4096 Aug  3 18:01 bin
+drwxr-xr-x    3 daemon   daemon        4096 Aug  3 18:01 erts-14.0.2
+drwxr-xr-x   14 daemon   daemon        4096 Aug  3 18:01 lib
+drwxr-xr-x    2 daemon   daemon        4096 Aug  3 18:10 log
+drwxr-xr-x    3 daemon   daemon        4096 Aug  3 18:01 releases
+/var/tmp $
+/var/tmp $ ls -al bus/bin/ bus/lib/bus-0.3.2/ebin/ bus/lib/bus-0.3.2/priv/data/ bus/log/
+bus/bin/:
+total 112
+drwxr-xr-x    2 daemon   daemon        4096 Aug  3 18:01 .
+drwxr-xr-x    1 daemon   daemon        4096 Aug  3 18:10 ..
+-rwxr-xr-x    1 daemon   daemon       35983 Aug  3 18:01 bus
+-rwxr-xr-x    1 daemon   daemon       35983 Aug  3 18:01 bus-0.3.2
+-rw-r--r--    1 daemon   daemon       14214 Aug  3 18:01 install_upgrade.escript
+-rw-r--r--    1 daemon   daemon        6681 Aug  3 18:01 no_dot_erlang.boot
+-rw-r--r--    1 daemon   daemon        7560 Aug  3 18:01 nodetool
+
+bus/lib/bus-0.3.2/ebin/:
+total 32
+drwxr-xr-x    2 daemon   daemon        4096 Aug  3 18:01 .
+drwxr-xr-x    4 daemon   daemon        4096 Aug  3 18:01 ..
+-rw-r--r--    1 daemon   daemon        1934 Aug  3 18:01 aux.beam
+-rw-r--r--    1 daemon   daemon        1207 Aug  3 18:01 bus-app.beam
+-rw-r--r--    1 daemon   daemon         951 Aug  3 18:01 bus-controller.beam
+-rw-r--r--    1 daemon   daemon        1626 Aug  3 18:01 bus-handler.beam
+-rw-r--r--    1 daemon   daemon         519 Aug  3 18:01 bus-sup.beam
+-rw-r--r--    1 daemon   daemon         654 Aug  3 18:01 bus.app
+
+bus/lib/bus-0.3.2/priv/data/:
+total 56
+drwxr-xr-x    2 daemon   daemon        4096 Aug  3 18:01 .
+drwxr-xr-x    3 daemon   daemon        4096 Aug  3 18:01 ..
+-rw-rw-r--    1 daemon   daemon       46218 Jan 15  2023 routes.txt
+
+bus/log/:
+total 16
+drwxr-xr-x    2 daemon   daemon        4096 Aug  3 18:10 .
+drwxr-xr-x    1 daemon   daemon        4096 Aug  3 18:10 ..
+-rw-r--r--    1 daemon   daemon        5480 Aug  3 18:10 bus.log
+/var/tmp $
+/var/tmp $ netstat -plunt
+netstat: showing only processes with your user ID
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:4369            0.0.0.0:*               LISTEN      51/epmd
+tcp        0      0 0.0.0.0:41067           0.0.0.0:*               LISTEN      1/bus
+tcp        0      0 0.0.0.0:8765            0.0.0.0:*               LISTEN      1/bus
+tcp        0      0 :::4369                 :::*                    LISTEN      51/epmd
+/var/tmp $
+/var/tmp $ ps ax
+PID   USER     TIME  COMMAND
+    1 daemon    0:02 {beam.smp} /var/tmp/bus/bin/bus -Bd -K true -A30 -- -root /var/tmp/bus -bindir /var/...
+   51 daemon    0:00 /var/tmp/bus/erts-14.0.2/bin/epmd -daemon
+   79 daemon    0:00 [epmd]
+   80 daemon    0:00 [epmd]
+  113 daemon    0:00 erl_child_setup 1048576
+  132 daemon    0:00 sh
+  145 daemon    0:00 ps ax
+/var/tmp $
+/var/tmp $ exit # Or simply <Ctrl-D>.
+0
+```
+
 ## Consuming
 
 All the routes are contained in a so-called **routes data store**. It is located in the `data/` directory. The default filename for it is `routes.txt`, but it can be specified explicitly (if intended to use another one) in the `apps/bus/src/bus.app.src` file.
@@ -256,5 +344,3 @@ Or even simpler:
 $ curl http://localhost:8765/route/direct
 {"error":"Request parameters must take positive integer values, in the range 1 .. 2,147,483,647. Please check your inputs."}
 ```
-
-**TBD** :dvd:
