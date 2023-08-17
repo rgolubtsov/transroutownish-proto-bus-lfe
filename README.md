@@ -309,11 +309,15 @@ The microservice has the ability to log messages to a logfile and to the Unix sy
 ```
 $ tail -f _build/prod/rel/bus/log/bus.log
 ...
-[2023-08-03|19:00:23.124525+03:00][info]  Server started on port 8765
-[2023-08-03|19:00:23.124980+03:00][info]  Application: bus. Started at: bus@localhost.
-[2023-08-03|19:01:25.207826+03:00][debug]  from=4838 | to=524987
-[2023-08-03|19:01:50.882327+03:00][debug]  from=82 | to=35390
-[2023-08-03|19:05:05.518063+03:00][info]  Server stopped
+[2023-08-17|19:50:09.856997+03:00][info]  Server started on port 8765
+[2023-08-17|19:50:09.858244+03:00][info]  Application: bus. Started at: bus@localhost.
+[2023-08-17|19:50:53.240705+03:00][debug]  from=4838 | to=524987
+[2023-08-17|19:50:53.241292+03:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+...
+[2023-08-17|19:50:58.614932+03:00][debug]  from=82 | to=35390
+[2023-08-17|19:50:58.615299+03:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+...
+[2023-08-17|19:55:18.298183+03:00][info]  Server stopped
 ```
 
 Messages registered by the Unix system logger can be seen and analyzed using the `journalctl` utility:
@@ -321,11 +325,12 @@ Messages registered by the Unix system logger can be seen and analyzed using the
 ```
 $ journalctl -f
 ...
-Aug 03 19:00:22 <hostname> bus[<pid>]: Starting up
-Aug 03 19:00:23 <hostname> bus[<pid>]: Server started on port 8765
-Aug 03 19:01:25 <hostname> bus[<pid>]: from=4838 | to=524987
-Aug 03 19:01:50 <hostname> bus[<pid>]: from=82 | to=35390
-Aug 03 19:05:05 <hostname> bus[<pid>]: Server stopped
+Aug 17 19:50:08 <hostname> bus[<pid>]: Starting up
+Aug 17 19:50:09 <hostname> bus[<pid>]: Server started on port 8765
+Aug 17 19:50:53 <hostname> bus[<pid>]: from=4838 | to=524987
+Aug 17 19:50:58 <hostname> bus[<pid>]: from=82 | to=35390
+Aug 17 19:55:18 <hostname> bus[<pid>]: Server stopped
+Aug 17 19:55:19 <hostname> run_erl[<pid>]: Erlang closed the connection.
 ```
 
 Inside the running container logs might be queried also by `tail`ing the `bus/log/bus.log` logfile:
@@ -333,12 +338,16 @@ Inside the running container logs might be queried also by `tail`ing the `bus/lo
 ```
 /var/tmp # tail -f bus/log/bus.log
 ...
-[2023-08-03|18:10:19.857665+00:00][info]  Server started on port 8765
-[2023-08-03|18:10:19.858003+00:00][info]  Application: bus. Started at: bus@<container_id>.
-[2023-08-03|18:30:30.573196+00:00][debug]  from=4838 | to=524987
-[2023-08-03|18:30:40.973891+00:00][debug]  from=82 | to=35390
-[2023-08-03|18:50:12.390989+00:00][notice]  SIGTERM received - shutting down
-[2023-08-03|18:50:12.391744+00:00][info]  Server stopped
+[2023-08-17|17:20:31.265942+00:00][info]  Server started on port 8765
+[2023-08-17|17:20:31.266175+00:00][info]  Application: bus. Started at: bus@<container_id>.
+[2023-08-17|17:25:06.934459+00:00][debug]  from=4838 | to=524987
+[2023-08-17|17:25:06.934940+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+...
+[2023-08-17|17:25:17.878966+00:00][debug]  from=82 | to=35390
+[2023-08-17|17:25:17.879342+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+...
+[2023-08-17|17:30:18.116113+00:00][notice]  SIGTERM received - shutting down
+[2023-08-17|17:30:18.116870+00:00][info]  Server stopped
 ```
 
 And of course Docker itself gives the possibility to read log messages by using the corresponding command for that:
@@ -346,12 +355,16 @@ And of course Docker itself gives the possibility to read log messages by using 
 ```
 $ sudo docker logs -f buslfe
 ...
-[2023-08-03|18:10:19.857665+00:00][info]  Server started on port 8765
-[2023-08-03|18:10:19.858003+00:00][info]  Application: bus. Started at: bus@<container_id>.
-[2023-08-03|18:30:30.573196+00:00][debug]  from=4838 | to=524987
-[2023-08-03|18:30:40.973891+00:00][debug]  from=82 | to=35390
-[2023-08-03|18:50:12.390989+00:00][notice]  SIGTERM received - shutting down
-[2023-08-03|18:50:12.391744+00:00][info]  Server stopped
+[2023-08-17|17:20:31.265942+00:00][info]  Server started on port 8765
+[2023-08-17|17:20:31.266175+00:00][info]  Application: bus. Started at: bus@<container_id>.
+[2023-08-17|17:25:06.934459+00:00][debug]  from=4838 | to=524987
+[2023-08-17|17:25:06.934940+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+...
+[2023-08-17|17:25:17.878966+00:00][debug]  from=82 | to=35390
+[2023-08-17|17:25:17.879342+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+...
+[2023-08-17|17:30:18.116113+00:00][notice]  SIGTERM received - shutting down
+[2023-08-17|17:30:18.116870+00:00][info]  Server stopped
 ```
 
 ### Error handling
