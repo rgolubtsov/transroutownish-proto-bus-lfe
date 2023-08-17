@@ -16,7 +16,7 @@ FROM       erlang:alpine AS build
 # Installing packages `gcc` and `musl-dev` to build `syslog` as a dependency.
 RUN        ["apk", "add", "gcc"     ]
 RUN        ["apk", "add", "musl-dev"]
-USER       daemon
+#USER      daemon
 WORKDIR    var/tmp
 RUN        ["mkdir", "-p", "bus/apps", "bus/config", "bus/data"]
 COPY       apps         bus/apps/
@@ -36,7 +36,7 @@ FROM       alpine
 RUN        ["apk", "add", "ncurses-libs"]
 RUN        ["apk", "add", "libstdc++"   ]
 RUN        ["apk", "add", "libcrypto1.1"]
-USER       daemon
+#USER      daemon
 WORKDIR    var/tmp
 COPY       --from=build var/tmp/bus/_build/prod/rel ./
 ENTRYPOINT ["bus/bin/bus", "foreground"]
