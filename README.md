@@ -69,6 +69,16 @@ $ curl -sO https://s3.amazonaws.com/rebar3/rebar3      && \
 
 The LFE (Lisp Flavoured Erlang) distribution can be downloaded and installed automatically as a dependency of the Rebar3 LFE plugin `rebar3_lfe`. For that to be done, it simply needs to launch the `$ rebar3` command without any arguments or options. The LFE distribution will be fetched and installed into the `./_build/default/plugins/lfe/` directory.
 
+The only prerequisite for that is to have Rebar3 config with the actual version of the Rebar3 LFE plugin specified in it: put the following into the `~/.config/rebar3/rebar.config` file, then run the `$ rebar3` command:
+
+```
+{plugins, [
+    {rebar3_lfe, "0.4.7"}
+]}.
+```
+
+(In this snippet the version 0.4.7 of the LFE plugin was chosen as an example, but the latest release is generally considered to be a better choice.)
+
 **Build** the microservice using **Rebar3** (and its LFE plugin):
 
 ```
