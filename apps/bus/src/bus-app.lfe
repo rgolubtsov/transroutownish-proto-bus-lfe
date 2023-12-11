@@ -25,7 +25,7 @@
 
 #| ----------------------------------------------------------------------------
  | @param -start-type The atom `normal'.
- | @param -start-args The list of start arguments.
+ | @param -start-args A list of start arguments.
  |
  | @returns The `ok' tuple containing the PID of the top supervisor
  |          and the `state' value that holds the Syslog handle.

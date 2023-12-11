@@ -144,7 +144,7 @@
 ; -----------------------------------------------------------------------------
 ; Helper function. Used to get the application settings.
 ;
-; Returns: The tuple containing values of individual settings.
+; Returns: A tuple containing values of individual settings.
 (defun -get-settings ()
     ; Retrieving the port number used to run the server -----------------------
     (let ((server-port- (application:get_env 'server-port)))
@@ -165,7 +165,7 @@
         (DEF-PORT)
     ))))
 
-    ; Identifying, whether debug logging is enabled ---------------------------
+    ; Identifying whether debug logging is enabled ----------------------------
     (let ((debug-log-enabled- (application:get_env 'logger-debug-enabled)))
 
     (let ((debug-log-enabled  (cond ((=/= debug-log-enabled- 'undefined)

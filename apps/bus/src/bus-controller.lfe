@@ -22,7 +22,7 @@
 )
 
 #| ----------------------------------------------------------------------------
- | @param args The tuple containing the server port number to listen on,
+ | @param args A tuple containing the server port number to listen on,
  |             as the first element.
  |#
 (defun startup (args)
