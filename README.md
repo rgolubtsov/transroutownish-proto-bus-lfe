@@ -125,7 +125,7 @@ $ rebar3 tree
 ===> Fetching pc v1.14.0
 ===> Analyzing applications...
 ...
-└─ bus─0.3.2 (project app)
+└─ bus─0.3.3 (project app)
    ├─ cowboy─2.10.0 (hex package)
    │  ├─ cowlib─2.12.1 (hex package)
    │  └─ ranch─1.8.0 (hex package)
