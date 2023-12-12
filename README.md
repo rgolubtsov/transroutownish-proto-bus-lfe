@@ -319,15 +319,15 @@ The microservice has the ability to log messages to a logfile and to the Unix sy
 ```
 $ tail -f _build/prod/rel/bus/log/bus.log
 ...
-[2023-08-17|19:50:09.856997+03:00][info]  Server started on port 8765
-[2023-08-17|19:50:09.858244+03:00][info]  Application: bus. Started at: bus@localhost.
-[2023-08-17|19:50:53.240705+03:00][debug]  from=4838 | to=524987
-[2023-08-17|19:50:53.241292+03:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+[2023-12-12|10:35:09.383551+03:00][info]  Server started on port 8765
+[2023-12-12|10:35:09.383631+03:00][info]  Application: bus. Started at: bus@localhost.
+[2023-12-12|10:37:05.416196+03:00][debug]  from=4838 | to=524987
+[2023-12-12|10:37:05.416322+03:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
 ...
-[2023-08-17|19:50:58.614932+03:00][debug]  from=82 | to=35390
-[2023-08-17|19:50:58.615299+03:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+[2023-12-12|10:37:18.498899+03:00][debug]  from=82 | to=35390
+[2023-12-12|10:37:18.499017+03:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
 ...
-[2023-08-17|19:55:18.298183+03:00][info]  Server stopped
+[2023-12-12|10:40:06.647772+03:00][info]  Server stopped
 ```
 
 Messages registered by the Unix system logger can be seen and analyzed using the `journalctl` utility:
@@ -335,12 +335,12 @@ Messages registered by the Unix system logger can be seen and analyzed using the
 ```
 $ journalctl -f
 ...
-Aug 17 19:50:08 <hostname> bus[<pid>]: Starting up
-Aug 17 19:50:09 <hostname> bus[<pid>]: Server started on port 8765
-Aug 17 19:50:53 <hostname> bus[<pid>]: from=4838 | to=524987
-Aug 17 19:50:58 <hostname> bus[<pid>]: from=82 | to=35390
-Aug 17 19:55:18 <hostname> bus[<pid>]: Server stopped
-Aug 17 19:55:19 <hostname> run_erl[<pid>]: Erlang closed the connection.
+Dec 12 10:35:08 <hostname> bus[<pid>]: Starting up
+Dec 12 10:35:09 <hostname> bus[<pid>]: Server started on port 8765
+Dec 12 10:37:05 <hostname> bus[<pid>]: from=4838 | to=524987
+Dec 12 10:37:18 <hostname> bus[<pid>]: from=82 | to=35390
+Dec 12 10:40:06 <hostname> bus[<pid>]: Server stopped
+Dec 12 10:40:07 <hostname> run_erl[<pid>]: Erlang closed the connection.
 ```
 
 Inside the running container logs might be queried also by `tail`ing the `bus/log/bus.log` logfile:
