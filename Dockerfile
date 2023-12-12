@@ -30,7 +30,7 @@ RUN        ["rebar3", "as", "prod",        "compile"]
 RUN        ["rebar3", "as", "prod", "lfe", "release"]
 
 # === Stage 2: Run the microservice ===========================================
-FROM       alpine
+FROM       alpine:3.18
 # Installing packages `ncurses-libs` and `libstdc++` as runtime dependencies
 # for Erlang BEAM; `libcrypto1.1` -- for Erlang Crypto app.
 RUN        ["apk", "add", "ncurses-libs"]
