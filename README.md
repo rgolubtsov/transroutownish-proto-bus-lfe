@@ -348,16 +348,16 @@ Inside the running container logs might be queried also by `tail`ing the `bus/lo
 ```
 /var/tmp # tail -f bus/log/bus.log
 ...
-[2023-08-17|17:20:31.265942+00:00][info]  Server started on port 8765
-[2023-08-17|17:20:31.266175+00:00][info]  Application: bus. Started at: bus@<container_id>.
-[2023-08-17|17:25:06.934459+00:00][debug]  from=4838 | to=524987
-[2023-08-17|17:25:06.934940+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+[2023-12-13|16:50:22.271789+00:00][info]  Server started on port 8765
+[2023-12-13|16:50:22.272542+00:00][info]  Application: bus. Started at: bus@<container_id>.
+[2023-12-13|17:00:37.153458+00:00][debug]  from=4838 | to=524987
+[2023-12-13|17:00:37.154489+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
 ...
-[2023-08-17|17:25:17.878966+00:00][debug]  from=82 | to=35390
-[2023-08-17|17:25:17.879342+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+[2023-12-13|17:00:44.935333+00:00][debug]  from=82 | to=35390
+[2023-12-13|17:00:44.935875+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
 ...
-[2023-08-17|17:30:18.116113+00:00][notice]  SIGTERM received - shutting down
-[2023-08-17|17:30:18.116870+00:00][info]  Server stopped
+[2023-12-13|17:05:07.684377+00:00][notice]  SIGTERM received - shutting down
+[2023-12-13|17:05:07.686099+00:00][info]  Server stopped
 ```
 
 And of course Docker itself gives the possibility to read log messages by using the corresponding command for that:
@@ -365,16 +365,16 @@ And of course Docker itself gives the possibility to read log messages by using 
 ```
 $ sudo docker logs -f buslfe
 ...
-[2023-08-17|17:20:31.265942+00:00][info]  Server started on port 8765
-[2023-08-17|17:20:31.266175+00:00][info]  Application: bus. Started at: bus@<container_id>.
-[2023-08-17|17:25:06.934459+00:00][debug]  from=4838 | to=524987
-[2023-08-17|17:25:06.934940+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+[2023-12-13|16:50:22.271789+00:00][info]  Server started on port 8765
+[2023-12-13|16:50:22.272542+00:00][info]  Application: bus. Started at: bus@<container_id>.
+[2023-12-13|17:00:37.153458+00:00][debug]  from=4838 | to=524987
+[2023-12-13|17:00:37.154489+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
 ...
-[2023-08-17|17:25:17.878966+00:00][debug]  from=82 | to=35390
-[2023-08-17|17:25:17.879342+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
+[2023-12-13|17:00:44.935333+00:00][debug]  from=82 | to=35390
+[2023-12-13|17:00:44.935875+00:00][debug]  1 =  1 2 3 4 5 6 7 8 9 987 11 12 13 4987 415 ...
 ...
-[2023-08-17|17:30:18.116113+00:00][notice]  SIGTERM received - shutting down
-[2023-08-17|17:30:18.116870+00:00][info]  Server stopped
+[2023-12-13|17:05:07.684377+00:00][notice]  SIGTERM received - shutting down
+[2023-12-13|17:05:07.686099+00:00][info]  Server stopped
 ```
 
 ### Error handling
