@@ -212,76 +212,76 @@ CONTAINER ID   IMAGE                    COMMAND                    CREATED      
 $
 $ sudo docker exec -it buslfe sh; echo $?
 /var/tmp #
-/var/tmp # bus/erts-14.0.2/bin/erl -version
-Erlang (SMP,ASYNC_THREADS) (BEAM) emulator version 14.0.2
+/var/tmp # bus/erts-14.1.1/bin/erl -version
+Erlang (SMP,ASYNC_THREADS) (BEAM) emulator version 14.1.1
 /var/tmp #
 /var/tmp # ls -al
 total 20
-drwxrwxrwt    1 root     root          4096 Aug 17 13:14 .
-drwxr-xr-x    1 root     root          4096 Jan  9  2023 ..
-drwxr-xr-x    1 root     root          4096 Aug 17 13:30 bus
+drwxrwxrwt    1 root     root          4096 Dec 13 16:41 .
+drwxr-xr-x    1 root     root          4096 Nov 30 09:32 ..
+drwxr-xr-x    1 root     root          4096 Dec 13 16:50 bus
 /var/tmp #
 /var/tmp # ls -al bus/
 total 32
-drwxr-xr-x    1 root     root          4096 Aug 17 13:30 .
-drwxrwxrwt    1 root     root          4096 Aug 17 13:14 ..
-drwxr-xr-x    2 root     root          4096 Aug 16 10:38 bin
-drwxr-xr-x    3 root     root          4096 Aug 16 10:38 erts-14.0.2
-drwxr-xr-x   14 root     root          4096 Aug 16 10:38 lib
-drwxr-xr-x    2 root     root          4096 Aug 17 13:30 log
-drwxr-xr-x    3 root     root          4096 Aug 16 10:38 releases
+drwxr-xr-x    1 root     root          4096 Dec 13 16:50 .
+drwxrwxrwt    1 root     root          4096 Dec 13 16:41 ..
+drwxr-xr-x    2 root     root          4096 Dec 13 16:41 bin
+drwxr-xr-x    3 root     root          4096 Dec 13 16:41 erts-14.1.1
+drwxr-xr-x   14 root     root          4096 Dec 13 16:41 lib
+drwxr-xr-x    2 root     root          4096 Dec 13 16:50 log
+drwxr-xr-x    3 root     root          4096 Dec 13 16:41 releases
 /var/tmp #
-/var/tmp # ls -al bus/bin/ bus/lib/bus-0.3.2/ebin/ bus/lib/bus-0.3.2/priv/data/ bus/log/
+/var/tmp # ls -al bus/bin/ bus/lib/bus-0.3.3/ebin/ bus/lib/bus-0.3.3/priv/data/ bus/log/
 bus/bin/:
 total 112
-drwxr-xr-x    2 root     root          4096 Aug 16 10:38 .
-drwxr-xr-x    1 root     root          4096 Aug 17 13:30 ..
--rwxr-xr-x    1 root     root         35983 Aug 16 10:38 bus
--rwxr-xr-x    1 root     root         35983 Aug 16 10:38 bus-0.3.2
--rw-r--r--    1 root     root         14214 Aug 16 10:38 install_upgrade.escript
--rw-r--r--    1 root     root          6681 Aug 16 10:38 no_dot_erlang.boot
--rw-r--r--    1 root     root          7560 Aug 16 10:38 nodetool
+drwxr-xr-x    2 root     root          4096 Dec 13 16:41 .
+drwxr-xr-x    1 root     root          4096 Dec 13 16:50 ..
+-rwxr-xr-x    1 root     root         35983 Dec 13 16:41 bus
+-rwxr-xr-x    1 root     root         35983 Dec 13 16:41 bus-0.3.3
+-rw-r--r--    1 root     root         14214 Dec 13 16:41 install_upgrade.escript
+-rw-r--r--    1 root     root          6695 Dec 13 16:41 no_dot_erlang.boot
+-rw-r--r--    1 root     root          7560 Dec 13 16:41 nodetool
 
-bus/lib/bus-0.3.2/ebin/:
+bus/lib/bus-0.3.3/ebin/:
 total 32
-drwxr-xr-x    2 root     root          4096 Aug 16 10:38 .
-drwxr-xr-x    4 root     root          4096 Aug 16 10:38 ..
--rw-r--r--    1 root     root          1934 Aug 16 10:38 aux.beam
--rw-r--r--    1 root     root          1207 Aug 16 10:38 bus-app.beam
--rw-r--r--    1 root     root           951 Aug 16 10:38 bus-controller.beam
--rw-r--r--    1 root     root          1626 Aug 16 10:38 bus-handler.beam
--rw-r--r--    1 root     root           519 Aug 16 10:38 bus-sup.beam
--rw-r--r--    1 root     root           654 Aug 16 10:38 bus.app
+drwxr-xr-x    2 root     root          4096 Dec 13 16:41 .
+drwxr-xr-x    4 root     root          4096 Dec 13 16:41 ..
+-rw-r--r--    1 root     root          1934 Dec 13 16:41 aux.beam
+-rw-r--r--    1 root     root          1207 Dec 13 16:41 bus-app.beam
+-rw-r--r--    1 root     root           951 Dec 13 16:41 bus-controller.beam
+-rw-r--r--    1 root     root          1626 Dec 13 16:41 bus-handler.beam
+-rw-r--r--    1 root     root           519 Dec 13 16:41 bus-sup.beam
+-rw-r--r--    1 root     root           704 Dec 13 16:41 bus.app
 
-bus/lib/bus-0.3.2/priv/data/:
+bus/lib/bus-0.3.3/priv/data/:
 total 56
-drwxr-xr-x    2 root     root          4096 Aug 16 10:38 .
-drwxr-xr-x    3 root     root          4096 Aug 16 10:38 ..
+drwxr-xr-x    2 root     root          4096 Dec 13 16:41 .
+drwxr-xr-x    3 root     root          4096 Dec 13 16:41 ..
 -rw-rw-r--    1 root     root         46218 Jan 15  2023 routes.txt
 
 bus/log/:
 total 16
-drwxr-xr-x    2 root     root          4096 Aug 17 13:30 .
-drwxr-xr-x    1 root     root          4096 Aug 17 13:30 ..
--rw-r--r--    1 root     root          5480 Aug 17 13:30 bus.log
+drwxr-xr-x    2 root     root          4096 Dec 13 16:50 .
+drwxr-xr-x    1 root     root          4096 Dec 13 16:50 ..
+-rw-r--r--    1 root     root          5480 Dec 13 16:50 bus.log
 /var/tmp #
 /var/tmp # netstat -plunt
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
-tcp        0      0 0.0.0.0:4369            0.0.0.0:*               LISTEN      50/epmd
-tcp        0      0 0.0.0.0:45295           0.0.0.0:*               LISTEN      1/bus
+tcp        0      0 0.0.0.0:43939           0.0.0.0:*               LISTEN      1/bus
 tcp        0      0 0.0.0.0:8765            0.0.0.0:*               LISTEN      1/bus
-tcp        0      0 :::4369                 :::*                    LISTEN      50/epmd
+tcp        0      0 0.0.0.0:4369            0.0.0.0:*               LISTEN      51/epmd
+tcp        0      0 :::4369                 :::*                    LISTEN      51/epmd
 /var/tmp #
 /var/tmp # ps ax
 PID   USER     TIME  COMMAND
-    1 root      0:01 {beam.smp} /var/tmp/bus/bin/bus -Bd -K true -A30 -- -root /var/tmp/bus -bindir /var/...
-   50 root      0:00 /var/tmp/bus/erts-14.0.2/bin/epmd -daemon
-   78 root      0:00 [epmd]
+    1 root      0:02 {beam.smp} /var/tmp/bus/bin/bus -Bd -K true -A30 -- -root /var/tmp/bus -bindir /var/tmp/bus/er
+   51 root      0:00 /var/tmp/bus/erts-14.1.1/bin/epmd -daemon
    79 root      0:00 [epmd]
-  112 root      0:00 erl_child_setup 1048576
-  131 root      0:00 sh
-  143 root      0:00 ps ax
+   80 root      0:00 [epmd]
+  113 root      0:00 erl_child_setup 1048576
+  132 root      0:00 sh
+  144 root      0:00 ps ax
 /var/tmp #
 /var/tmp # exit # Or simply <Ctrl-D>.
 0
