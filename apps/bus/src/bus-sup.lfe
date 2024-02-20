@@ -6,7 +6,7 @@
 ; An LFE (Lisp Flavoured Erlang) application, designed and intended to be run
 ; as a microservice, implementing a simple urban bus routing prototype.
 ; =============================================================================
-; Copyright (C) 2023 Radislav (Radicchio) Golubtsov
+; Copyright (C) 2023-2024 Radislav (Radicchio) Golubtsov
 ;
 ; (See the LICENSE file at the top of the source tree.)
 ;
